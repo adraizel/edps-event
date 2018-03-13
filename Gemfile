@@ -34,7 +34,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'skyblue_rails'
-gem 'devise'
+gem 'sorcery'
 gem 'banken'
 
 group :development, :test do
