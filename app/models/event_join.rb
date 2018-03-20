@@ -1,0 +1,2 @@
+class EventJoin < ApplicationRecord
+end
