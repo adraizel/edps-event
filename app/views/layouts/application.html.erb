@@ -9,6 +9,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container main-pane">
+      <%= render "shared/navigation" %> 
+      <% flash.each do |k,v| %>
+        <%= content_tag :div, class: "alert alert-#{k}", data: {'no-turbolink' => true} do %>
+          <div class="icon-close"></div>
+          <%= v %>
+        <% end %>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>
