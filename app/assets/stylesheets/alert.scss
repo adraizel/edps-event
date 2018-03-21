@@ -1,0 +1,49 @@
+@mixin generate-alert($main){
+  background: lighten($color: $main, $amount: 40%);
+  border: solid 2px $main;
+  color: darken($color: $main, $amount: 25%)
+}
+
+.alert {
+  font-family: $font-family;
+	font-weight: $font-weight;
+	font-size: 1em;
+	-webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+
+  & .icon-close {
+    font-size: 2em;
+  }
+  
+  &.alert-success{
+    @include generate-alert($success-color);
+  }
+
+  &.alert-error{
+    @include generate-alert($error-color);
+  }
+
+  &.alert-warning{
+    @include generate-alert($warning-color);
+  }
+
+  &.alert-info{
+    @include generate-alert($main-color);    
+  }
+
+  &.alert-notice{
+    @include generate-alert($main-color);    
+  }
+
+  &.alert-light{
+    @include generate-alert($light-color);
+  }
+
+  &.alert-dark{
+    @include generate-alert($dark-color);
+  }
+}
