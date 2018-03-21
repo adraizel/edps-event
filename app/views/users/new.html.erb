@@ -1,2 +1,21 @@
 <h1>Users#new</h1>
 <p>Find me in app/views/users/new.html.erb</p>
+<%= form_with model: @user, url: user_path, method: :post do |f| %>
+  <%= f.label :email%>
+  <%= f.email_field :email, class: 'form-control' %>
+  <%= f.label :password %>  
+  <%= f.password_field :password, class: 'form-control' %>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form-control' %>
+  <%= f.label :student_number %>
+  <%= f.text_field :student_number, class: 'form-control' %>
+  <%= f.label :birthday%>
+  <%= f.date_select :birthday, {start_year: Date.today.year - 30, end_year: Date.today.year - 17}, class: 'form-control' %>
+  <%= f.label :allergy_data%>
+  <%= f.text_field :allergy_data, class: 'form-control' %>
+  <%= f.label :remark%>
+  <%= f.text_field :remark, class: 'form-control' %>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
