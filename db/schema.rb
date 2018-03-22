@@ -31,11 +31,11 @@ ActiveRecord::Schema.define(version: 20180320131504) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.datetime "join_limit"
-    t.integer "organizer_id"
+    t.integer "user_id"
     t.boolean "deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organizer_id"], name: "index_events_on_organizer_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20180320131504) do
     t.date "birthday", null: false
     t.string "allergy_data", default: ""
     t.string "remark", default: ""
+    t.boolean "executive", default: false
     t.integer "role", default: 0, null: false
-    t.integer "executive", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

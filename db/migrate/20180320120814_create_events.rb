@@ -10,7 +10,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.datetime :start_time
       t.datetime :end_time
       t.datetime :join_limit
-      t.references :organizer, foreign_key: { to_table: :users }
+      t.references :user
       t.boolean :deleted, default: false
       
       t.timestamps
