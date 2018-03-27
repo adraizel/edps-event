@@ -1,0 +1,9 @@
+nav
+  = link_to "TOP", root_path
+  = link_to "イベント一覧", events_path
+  - if current_user
+    = link_to "マイページ", user_path
+    = link_to "ログアウト", logout_path, method: :post
+  - else
+    = link_to "ログイン", login_path
+    = link_to "新規登録", new_user_path

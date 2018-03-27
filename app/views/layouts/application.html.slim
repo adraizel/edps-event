@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title
+      | EdpsEvent
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    .container.main-pane
+      = render "shared/navigation"
+      - flash.each do |k,v|
+        = content_tag :div, class: "alert alert-#{k}", data: {'no-turbolink' => true} do
+          .icon-close
+          = v
+      = yield
