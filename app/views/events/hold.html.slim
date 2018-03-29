@@ -2,5 +2,5 @@ h1
   | Events#hold
 p
   | Find me in app/views/events/hold.html.erb
-- @hold_list.each do |h|
-  = h.title
+= render :partial => '/users/user_nav'  
+= render :partial => 'event_info', :collection => @hold_list, :as => 'list'

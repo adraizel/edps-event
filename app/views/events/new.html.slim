@@ -2,22 +2,20 @@ h1
   | Events#new
 p
   | Find me in app/views/events/new.html.erb
+= render :partial => 'users/user_nav'  
 = form_with model: @event, url: user_events_path, method: :post do |f|
   = f.label :title
   = f.text_field :title, class: 'form-control'
-  = f.label :description
-  = f.text_area :description, class: 'form-control'
-  = f.label :roll_call_point
-  = f.text_field :roll_call_point, class: 'form-control'
   = f.label :location
   = f.text_field :location, class: 'form-control'
-  = f.label :roll_call_time
-  .inline_datetime
-    = f.datetime_select :roll_call_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
   = f.label :start_time
-  = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
-  = f.label :end_time
-  = f.datetime_select :end_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  .inline_datetime
+    = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :charge
+  = f.text_field :charge, class: 'form-control'
   = f.label :join_limit
-  = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  .inline_datetime
+    = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :description
+  = f.text_area :description, class: 'form-control'
   = f.submit "イベントを登録する", class: "btn btn-default"

@@ -6,3 +6,30 @@
   background-color: #FFF;
   min-height: 100vh;
 }
+
+div.inline_datetime{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-controll {
+  display: inline-flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  & a {
+    border-bottom: 2px solid $main-grey-color;
+    flex: 200px 1 1;
+    text-align: center;
+
+    &.active {
+      border: 2px solid $main-grey-color;
+      border-bottom: none;
+    }
+  }
+}
+
+textarea {
+  min-width: 100%;
+}

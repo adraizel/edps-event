@@ -25,11 +25,8 @@ ActiveRecord::Schema.define(version: 20180320131504) do
     t.string "title"
     t.text "description"
     t.integer "charge"
-    t.string "roll_call_point"
     t.string "location"
-    t.datetime "roll_call_time"
     t.datetime "start_time"
-    t.datetime "end_time"
     t.datetime "join_limit"
     t.integer "user_id"
     t.boolean "deleted", default: false

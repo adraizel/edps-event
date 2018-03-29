@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/earlyaccess/notosansjp.css);
 // Grays
 // $gray7: #111;
 // $gray6: #333;
@@ -26,9 +27,9 @@ $body-background: #FbFbFb;
 $text-color: #555;
 
 $main-color: #e58900;
-$success-color: #00b7ff;
+$success-color: #0077ff;
 $error-color: #ff1616;
-$warning-color: #fbff0e;
+$warning-color: #d3ff0e;
 $light-color: #ecf0f1;
 $dark-color: #252428;
 $main-light-color: #ffcc6c;
@@ -39,7 +40,7 @@ $navigation-color: #2c3e50;
 $color-diff: #151515;
 
 // Defaults
-$font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family: 'Noto Sans JP', 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 // $font-size: 16px;
 // $font-weight: normal;
 // $line-height: 1.5em;
