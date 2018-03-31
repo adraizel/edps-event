@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event_detail = Event.find(params[:id])
   end
 
   def new
@@ -47,6 +48,10 @@ class EventsController < ApplicationController
 
   def hold
     @hold_list = current_user.events
+  end
+
+  def detail
+    @event_detail = Event.find(params[:id])
   end
 
   private

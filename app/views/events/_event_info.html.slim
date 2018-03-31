@@ -1,2 +1,4 @@
 .event-info
-  = list.title
+  = link_to list.title, detail_user_event_path(list)
+  = list.location
+  = "#{list.charge}円"

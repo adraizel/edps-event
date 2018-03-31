@@ -1,0 +1,13 @@
+.event-detail
+  = detail.title
+  h4 参加費用
+  = "#{detail.charge}円"
+  h4 場所
+  = detail.location
+  h4 開始時間
+  = detail.start_time
+  h4 イベント概要
+  = detail.description
+  h4 受付締切
+  = detail.join_limit
+  = yield

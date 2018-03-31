@@ -2,7 +2,6 @@ h1
   | Users#new
 p
   | Find me in app/views/users/new.html.erb
-= render :partial => 'user_nav'
 = form_with model: @user, url: user_path, method: :post do |f|
   = f.label :email
   = f.email_field :email, class: 'form-control'
