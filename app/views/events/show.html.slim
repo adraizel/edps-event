@@ -3,4 +3,5 @@ h1
 p
   | Find me in app/views/events/show.html.erb
 = render 'event_detail', detail: @event_detail do
-  = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'btn'
+  div
+    = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'btn'

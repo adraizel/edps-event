@@ -3,4 +3,5 @@ h1
 p
   | Find me in app/views/events/detail.html.erb
 = render 'event_detail', detail: @event_detail do
-  = link_to "編集", edit_user_event_path(@event_detail), class: 'btn'
+  div
+    = link_to "編集", edit_user_event_path(@event_detail), class: 'btn'

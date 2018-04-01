@@ -6,6 +6,4 @@ p
   p
     |  ここには何もありませんよ？ 
 - else
-  - @event_list.each do |e|
-    = e.title
-    br
+  = render :partial => 'event_info_s', :collection => @event_list, :as => 'list'

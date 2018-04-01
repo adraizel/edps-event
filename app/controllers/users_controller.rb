@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def show
+    @user = User.find(current_user.id)
   end
 
   
@@ -24,13 +25,19 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     @user.assign_attributes(user_param)
     if @user.save!
-      redirect_to :root, success: "情報を更新しました"
+      redirect_to user_path, success: "情報を更新しました"
     else
       render :edit
     end
   end
 
   def destroy
+    @d_user = User.find(current_user.id)
+    if @d_user.destroy!
+      logout
+      redirect_to :root, notice: "会員情報を削除しました"
+    else
+    end
   end
 
   private
