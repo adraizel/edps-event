@@ -179,7 +179,9 @@ ja:
       storage_units:
         format: "%n%u"
         units:
-          byte: バイト
+          byte:
+            one: Byte
+            other: Bytes
           gb: GB
           kb: KB
           mb: MB

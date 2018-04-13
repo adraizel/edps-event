@@ -8,12 +8,13 @@ Rails.application.routes.draw do
 
   resource :user do
     resources :events, except: [:index, :show] do
-      get :hold, on: :collection
+      get :held, on: :collection
       get :detail, on: :member
     end
   end
 
   resources :events, only: [:index, :show] do
+    get :join, on: :member
     post :join, on: :member
     post :unjoin, on: :member
     get :joined, on: :collection

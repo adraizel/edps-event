@@ -5,3 +5,4 @@ p
 = render 'event_detail', detail: @event_detail do
   div
     = link_to "編集", edit_user_event_path(@event_detail), class: 'btn'
+    = link_to "削除", user_event_path(@event_detail), method: :delete, class: 'btn btn-error'

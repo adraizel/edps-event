@@ -2,3 +2,20 @@ h1
   | Events#edit
 p
   | Find me in app/views/events/edit.html.erb
+= render :partial => 'users/user_nav'  
+= form_with model: @event, url: user_event_path, method: :patch do |f|
+  = f.label :title
+  = f.text_field :title, class: 'form-control'
+  = f.label :location
+  = f.text_field :location, class: 'form-control'
+  = f.label :start_time
+  .inline_datetime
+    = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :charge
+  = f.text_field :charge, class: 'form-control'
+  = f.label :join_limit
+  .inline_datetime
+    = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :description
+  = f.text_area :description, class: 'form-control'
+  = f.submit "イベントを更新する", class: "btn btn-default"

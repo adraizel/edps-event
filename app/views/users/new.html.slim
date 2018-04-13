@@ -2,6 +2,7 @@ h1
   | Users#new
 p
   | Find me in app/views/users/new.html.erb
+= @new_user.errors.any?
 = form_with model: @user, url: user_path, method: :post do |f|
   = f.label :email
   = f.email_field :email, class: 'form-control'
