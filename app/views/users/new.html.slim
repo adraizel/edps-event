@@ -2,17 +2,21 @@ h1
   | Users#new
 p
   | Find me in app/views/users/new.html.erb
-= @new_user.errors.any?
-= form_with model: @user, url: user_path, method: :post do |f|
+= form_with model: @new_user, url: user_path, method: :post,  local: true do |f|
   = f.label :email
+  = show_errors(@new_user.errors.full_messages_for(:email))
   = f.email_field :email, class: 'form-control'
   = f.label :password
+  = show_errors(@new_user.errors.full_messages_for(:password))
   = f.password_field :password, class: 'form-control'
   = f.label :password_confirmation
+  = show_errors(@new_user.errors.full_messages_for(:password_confirmation))
   = f.password_field :password_confirmation, class: 'form-control'
   = f.label :name
+  = show_errors(@new_user.errors.full_messages_for(:name))
   = f.text_field :name, class: 'form-control'
   = f.label :student_number
+  = show_errors(@new_user.errors.full_messages_for(:student_number))
   = f.text_field :student_number, class: 'form-control'
   = f.label :birthday
   .inline_datetime

@@ -10,9 +10,25 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :student_number, format: {with: /\A(#{majors.join('|')})\d{2}-\d{4}[A-Z]\z/}, uniqueness: true
 
-  validates :email, uniqueness: true
-  validates :student_number, uniqueness: true
-  validates :student_number, format: {with: /\A(#{majors.map{|t|Regexp.escape(t)}.join('|')})\d{2}-\d{4}[A-Z]\z/}
+  def age
+    date_format = "%Y%m%d"
+    (Date.today.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
+  end
 
+  def isAdult?
+    20 <= age
+  end
+
+  def ageByDate(date)
+    date_format = "%Y%m%d"
+    (date.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
+  end
+
+  def isAdultByDate?(date)
+    20 <= ageByDate(date)
+  end
 end

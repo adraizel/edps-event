@@ -8,12 +8,12 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new()
+    @new_event = Event.new()
   end
 
   def create
     @new_event = current_user.events.build(event_params)
-    if @new_event.save!
+    if @new_event.save
       EventJoin.create(user: current_user, event: @new_evemt)
       redirect_to detail_user_event_path(@new_event)
     else
@@ -22,13 +22,13 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
+    @edit_event = Event.find(params[:id])
   end
 
   def update
-    @event = Event.find(params[:id])
-    @event.assign_attributes(event_params)
-    if @event.save!
+    @edit_event = Event.find(params[:id])
+    @edit_event.assign_attributes(event_params)
+    if @edit_event.save
       redirect_to detail_user_event_path(@event), success: "情報を更新しました"
     else
       render :edit
@@ -37,7 +37,7 @@ class EventsController < ApplicationController
 
   def destroy
     @destroy_event = Event.find(params[:id])
-    if @destroy_event.destroy!
+    if @destroy_event.destroy
       redirect_to held_user_events_path, success: "イベントを削除しました"
     else
       render detail_user_event_path(@destroy_event), error: "削除に失敗しました"
