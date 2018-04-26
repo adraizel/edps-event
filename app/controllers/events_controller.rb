@@ -45,13 +45,17 @@ class EventsController < ApplicationController
   end
 
   def join
-    EventJoin.create(user: current_user, event: Event.find(params[:id]))
-    redirect_to joined_events_path
+    @event_join = EventJoin.new(user: current_user, event: Event.find(params[:id]))
+    if @event_join.save
+      redirect_to joined_events_path, success: "イベントに参加しました"
+    else
+
+    end
   end
 
   def unjoin
     @destroy_join = EventJoin.find_by(user: current_user, event: Event.find(params[:id]))
-    if @destroy_join.destroy!
+    if @destroy_join.destroy
       redirect_to joined_events_path, success: "参加を取り消しました"
     else
 
