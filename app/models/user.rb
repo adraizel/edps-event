@@ -31,4 +31,16 @@ class User < ApplicationRecord
   def isAdultByDate?(date)
     20 <= ageByDate(date)
   end
+
+  def grade
+    spl = student_number.split('-')
+    spl[0].gsub!(/[A-Z]{2}/,'')
+    spl[1] = spl[1].slice!(0)
+    if spl[1].match('1')
+      y = ("20" + spl[0]).to_i
+    else
+      y = 1988 + spl[0].to_i
+    end
+    Date.today.year - y + 1
+  end
 end
