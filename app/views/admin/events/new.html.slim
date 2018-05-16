@@ -2,3 +2,26 @@ h1
   | Admin::Events#new
 p
   | Find me in app/views/admin/events/new.html.erb
+/ = render
+= form_with model: @new_event, url: admin_events_path, method: :post, local: true do |f|
+  = f.label :title
+  = show_errors(@new_event.errors.full_messages_for(:title))
+  = f.text_field :title, class: 'form-control'
+  = f.label :location
+  = show_errors(@new_event.errors.full_messages_for(:location))
+  = f.text_field :location, class: 'form-control'
+  = f.label :start_time
+  = show_errors(@new_event.errors.full_messages_for(:start_time))
+  .inline_datetime
+    = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :charge
+  = show_errors(@new_event.errors.full_messages_for(:charge))
+  = f.text_field :charge, class: 'form-control'
+  = f.label :join_limit
+  = show_errors(@new_event.errors.full_messages_for(:join_limit))
+  .inline_datetime
+    = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :description
+  = show_errors(@new_event.errors.full_messages_for(:description))
+  = f.text_area :description, class: 'form-control'
+  = f.submit "イベントを登録する", class: "btn btn-default"

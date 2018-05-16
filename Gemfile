@@ -38,6 +38,8 @@ gem 'skyblue_rails'
 gem 'sorcery'
 gem 'banken'
 gem 'jquery-rails'
+gem 'enum_select_rails'
+gem 'enum_help'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

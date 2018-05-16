@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  enum role: [member: 0, mailer: 1, readonly: 2, executive: 3]
   
   has_many :event_joins, dependent: :destroy
   has_many :events, dependent: :destroy

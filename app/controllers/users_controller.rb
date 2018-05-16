@@ -37,6 +37,7 @@ class UsersController < ApplicationController
       logout
       redirect_to :root, notice: "会員情報を削除しました"
     else
+      
     end
   end
 

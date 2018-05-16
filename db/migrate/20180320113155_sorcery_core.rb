@@ -11,7 +11,7 @@ class SorceryCore < ActiveRecord::Migration[5.1]
       t.string :allergy_data, default: ""
       t.string :remark, default: ""
       t.boolean :executive, default: false
-      t.integer :role, null: false, default: 0
+      t.boolean :mailer, default: false
       
       t.timestamps                :null => false
     end

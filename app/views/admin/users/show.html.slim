@@ -2,3 +2,23 @@ h1
   | Admin::Users#show
 p
   | Find me in app/views/admin/users/show.html.erb
+h2 名前
+p
+  = @user_detail.name
+h2 学籍番号
+p
+  = @user_detail.student_number
+h2 生年月日・年齢
+p
+  = @user_detail.birthday
+p
+  | #{Date.today}時点で#{@user_detail.age}歳
+h2 アレルギー情報
+p
+  = @user_detail.allergy_data.present? ? @user_detail.allergy_data : "特になし"
+h2 備考
+p
+  = @user_detail.remark.present? ? @user_detail.remark : "特になし"
+= link_to "編集", edit_admin_user_path(@user_detail), class: "btn btn-warning"
+= link_to "削除", admin_user_path(@user_detail), method: :delete, class: "btn btn-error"
+= link_to "前のページに戻る", :back, class: "btn btn-primary"

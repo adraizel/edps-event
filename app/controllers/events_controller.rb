@@ -29,7 +29,7 @@ class EventsController < ApplicationController
     @edit_event = Event.find(params[:id])
     @edit_event.assign_attributes(event_params)
     if @edit_event.save
-      redirect_to detail_user_event_path(@event), success: "情報を更新しました"
+      redirect_to detail_user_event_path(@edit_event), success: "情報を更新しました"
     else
       render :edit
     end

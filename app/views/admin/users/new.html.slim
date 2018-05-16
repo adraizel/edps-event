@@ -2,3 +2,36 @@ h1
   | Admin::Users#new
 p
   | Find me in app/views/admin/users/new.html.erb
+= form_with model: @new_user, url: admin_users_path, method: :post,  local: true do |f|
+  = f.label :email
+  = show_errors(@new_user.errors.full_messages_for(:email))
+  = f.email_field :email, class: 'form-control'
+  = f.label :password
+  = show_errors(@new_user.errors.full_messages_for(:password))
+  = f.password_field :password, class: 'form-control'
+  = f.label :password_confirmation
+  = show_errors(@new_user.errors.full_messages_for(:password_confirmation))
+  = f.password_field :password_confirmation, class: 'form-control'
+  = f.label :name
+  = show_errors(@new_user.errors.full_messages_for(:name))
+  = f.text_field :name, class: 'form-control'
+  = f.label :student_number
+  = show_errors(@new_user.errors.full_messages_for(:student_number))
+  = f.text_field :student_number, class: 'form-control'
+  = f.label :birthday
+  .inline_datetime
+    = f.date_select :birthday, {start_year: Date.today.year - 30, end_year: Date.today.year - 17}, class: 'form-control'
+  = f.label :allergy_data
+  = f.text_field :allergy_data, class: 'form-control'
+  = f.label :remark
+  = f.text_field :remark, class: 'form-control'
+  = f.label "上位権限"
+  .inline_checkbox
+    label.fancy-checkbox
+      = f.check_box :executive
+      span 幹部扱い(メール送信の許可を含む)
+    label.fancy-checkbox
+      = f.check_box :mailer
+      span メール送信の許可
+  / = f.select :role, User.roles.keys.to_a, {}, class: 'form-control'
+  = f.submit class: 'btn btn-primary'

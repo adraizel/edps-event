@@ -2,3 +2,10 @@ h1
   | Admin::Users#index
 p
   | Find me in app/views/admin/users/index.html.erb
+table.table.table-striped.table-hover
+  tr
+    th 学年
+    th 学籍番号
+    th 名前
+    th 成人
+  = render :partial => 'user_index', :collection => @user_list, :as => 'list'

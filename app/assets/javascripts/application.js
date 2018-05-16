@@ -15,8 +15,14 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   $(".alert .icon-close").click(function() {
     $(this).parent().remove();
   }); 
+
+  $('tr[data-href]').addClass('clickable').click(function(e) {
+    if(!$(e.target).is('a')){
+      window.location = $(e.target).closest('tr').data('href');
+    }
+  })
  });

@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20180320131504) do
     t.datetime "start_time"
     t.datetime "join_limit"
     t.integer "user_id"
+    t.boolean "official"
     t.boolean "deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,7 +48,7 @@ ActiveRecord::Schema.define(version: 20180320131504) do
     t.string "allergy_data", default: ""
     t.string "remark", default: ""
     t.boolean "executive", default: false
-    t.integer "role", default: 0, null: false
+    t.boolean "mailer", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

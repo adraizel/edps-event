@@ -4,6 +4,8 @@ nav
   - if current_user
     = link_to "マイページ", user_path
     = link_to "ログアウト", logout_path, method: :post
+    - if current_user.executive?
+      = link_to "管理者TOP", admin_root_path
   - else
     = link_to "ログイン", login_path
     = link_to "新規登録", new_user_path
