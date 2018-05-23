@@ -19,6 +19,12 @@ div.inline_datetime{
   }
 }
 
+@media screen and (max-width: $tablet-portrait-breakpoint) {
+  div.inline_datetime{
+    flex-direction: column;
+  }
+}
+
 .tab-controll {
   display: inline-flex;
   justify-content: space-between;
@@ -54,5 +60,14 @@ input[disabled], select[disabled] {
   
   & label {
     flex: 1 1 400px;
+  }
+}
+
+nav {
+  display: flex;
+
+  & a {
+    text-align: center;
+    flex: 1 1 200px;
   }
 }

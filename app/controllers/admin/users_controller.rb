@@ -38,15 +38,16 @@ class Admin::UsersController < ApplicationController
 
   def destroy
     @destroy_user = User.find(params[:id])
-    if @destroy_user.destroy
+    if @destroy_user.executive? == false && @destroy_user.destroy
       redirect_to :admin_root, notice: "会員情報を削除しました"
     else
-      
+      flash.now[:error] = "幹部扱いのユーザーは削除できません"
+      redirect_to admin_user_path(@destroy_user)
     end
   end
 
   private
   def user_param
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :student_number, :birthday, :allergy_data, :remark)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :student_number, :birthday, :allergy_data, :remark, :executive, :mailer)
   end
 end

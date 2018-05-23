@@ -2,3 +2,8 @@ h1
   | Admin::Events#index
 p
   | Find me in app/views/admin/events/index.html.erb
+- if @event_list.empty?
+  p
+    |  ここには何もありませんよ？ 
+- else
+  = render :partial => 'event_index', :collection => @event_list, :as => 'list'

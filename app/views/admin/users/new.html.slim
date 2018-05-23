@@ -33,5 +33,4 @@ p
     label.fancy-checkbox
       = f.check_box :mailer
       span メール送信の許可
-  / = f.select :role, User.roles.keys.to_a, {}, class: 'form-control'
   = f.submit class: 'btn btn-primary'

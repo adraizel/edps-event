@@ -1,4 +1,5 @@
-nav
+nav.admin
+  / | #{"ナナナナナビゲーション" if current_user}
   = link_to "TOP", root_path
   = link_to "イベント一覧", events_path
   - if current_user

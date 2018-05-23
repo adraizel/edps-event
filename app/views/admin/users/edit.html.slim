@@ -24,4 +24,13 @@ p
   = f.text_field :allergy_data, class: 'form-control'
   = f.label :remark
   = f.text_field :remark, class: 'form-control'
+  = f.label "上位権限"
+  .inline_checkbox
+    label.fancy-checkbox
+      = f.check_box :executive
+      span 幹部扱い(メール送信の許可を含む)
+    label.fancy-checkbox
+      = f.check_box :mailer
+      span メール送信の許可
   = f.submit class: 'btn btn-primary'
+  = link_to "詳細に戻る", admin_user_path(@edit_user), class: "btn btn-primary"

@@ -4,5 +4,19 @@ p
   | Find me in app/views/events/detail.html.erb
 = render 'event_detail', detail: @event_detail do
   div
+    h4 参加者一覧
+    - if @event_detail.event_joins.present?
+      p CSVダウンロード
+      p PDFダウンロード(A4)
+      table.table
+        tr
+          th 学年
+          th 学籍番号
+          th 名前
+          th 成人
+        = render partial: 'join_list', collection: @event_detail.event_joins
+    - else
+      p 参加者はまだいません
+    = link_to "一覧に戻る", held_user_events_path, class: 'btn'
     = link_to "編集", edit_user_event_path(@event_detail), class: 'btn'
     = link_to "削除", user_event_path(@event_detail), method: :delete, class: 'btn btn-error'
