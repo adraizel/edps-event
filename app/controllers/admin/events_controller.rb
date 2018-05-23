@@ -14,7 +14,7 @@ class Admin::EventsController < ApplicationController
   end
 
   def create
-    @new_event = Event.new(admin_event_params)
+    @new_event = current_user.events.build(admin_event_params)
     @new_event.official = true;
     if @new_event.save
       redirect_to admin_event_path(@new_event), success: "イベントを登録しました"
