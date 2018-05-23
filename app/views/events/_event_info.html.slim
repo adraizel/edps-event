@@ -1,0 +1,5 @@
+.event-info
+  = link_to list.title, detail_user_event_path(list)
+  = list.location
+  - if 0 < list.charge
+    = "#{list.charge}円"

@@ -1,0 +1,9 @@
+tr data-href=admin_user_path(list)
+  td
+    = list.grade
+  td
+    = list.student_number
+  td
+    = list.name
+  td
+    = list.isAdult? ? "○" : "×"

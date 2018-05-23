@@ -1,0 +1,27 @@
+h1
+  | Events#edit
+p
+  | Find me in app/views/events/edit.html.erb
+= render :partial => 'users/user_nav'  
+= form_with model: @edit_event, url: user_event_path, method: :patch, local: true do |f|
+  = f.label :title
+  = show_errors(@edit_event.errors.full_messages_for(:title))
+  = f.text_field :title, class: 'form-control'
+  = f.label :location
+  = show_errors(@edit_event.errors.full_messages_for(:location))
+  = f.text_field :location, class: 'form-control'
+  = f.label :start_time
+  = show_errors(@edit_event.errors.full_messages_for(:start_time))
+  .inline_datetime
+    = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :charge
+  = show_errors(@edit_event.errors.full_messages_for(:charge))
+  = f.text_field :charge, class: 'form-control'
+  = f.label :join_limit
+  = show_errors(@edit_event.errors.full_messages_for(:join_limit))
+  .inline_datetime
+    = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'form-control'
+  = f.label :description
+  = show_errors(@edit_event.errors.full_messages_for(:description))
+  = f.text_area :description, class: 'form-control'
+  = f.submit "イベントを更新する", class: "btn btn-default"

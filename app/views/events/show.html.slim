@@ -1,0 +1,11 @@
+h1
+  | Events#show
+p
+  | Find me in app/views/events/show.html.erb
+= render 'event_detail', detail: @event_detail do
+  div
+    = link_to "一覧に戻る", events_path, class: "btn"
+    - if @event_detail.isJoined?(current_user)
+      = link_to '参加を取り消す', unjoin_event_path(@event_detail),  method: :post, class: 'btn btn-error', data: {confirm: '参加を取り消しますよろしいですか？'}  
+    - else
+      = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'btn'

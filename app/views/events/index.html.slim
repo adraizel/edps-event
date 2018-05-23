@@ -1,0 +1,9 @@
+h1
+  | Events#index
+p
+  | Find me in app/views/events/index.html.erb
+- if @event_list.empty?
+  p
+    |  ここには何もありませんよ？ 
+- else
+  = render :partial => 'event_info_s', :collection => @event_list, :as => 'list'

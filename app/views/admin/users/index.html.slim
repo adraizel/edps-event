@@ -1,0 +1,16 @@
+h1
+  | Admin::Users#index
+p
+  | Find me in app/views/admin/users/index.html.erb
+= link_to "ユーザー新規登録", new_admin_user_path, class: "btn btn-success"
+/ = form_with url: admin_users_path, method: :get, local: true do |f|
+  = f.select :grade, [1, 2, 3, 4, "OB"],{include_blank: true}, class: "form-control"
+  = f.submit "絞り込む", class: "btn btn-primary"
+
+table.table.table-striped.table-hover
+  tr
+    th 学年
+    th 学籍番号
+    th 名前
+    th 成人
+  = render :partial => 'user_index', :collection => @user_list, :as => 'list'
