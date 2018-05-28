@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action ->{
     require_login(user_path)
-  }
+  }, except: [:new, :create]
 
   def show
     @user = User.find(current_user.id)
