@@ -1,4 +1,7 @@
 class Admin::EventsController < ApplicationController
+  before_action -> {
+    require_login
+  }
   layout 'admin'
   
   def index

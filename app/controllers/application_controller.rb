@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     session[:return_to_url] = url
   end
 
-  def require_login(url)
+  def require_login(url = nil)
     unless current_user
       set_back_url(url) if url.present?
       redirect_to login_path
