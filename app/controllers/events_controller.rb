@@ -23,10 +23,12 @@ class EventsController < ApplicationController
 
   def edit
     @edit_event = Event.find(params[:id])
+    authorize! @edit_event
   end
 
   def update
     @edit_event = Event.find(params[:id])
+    authorize! @edit_event
     @edit_event.assign_attributes(event_params)
     if @edit_event.save
       redirect_to detail_user_event_path(@edit_event), success: "情報を更新しました"
@@ -37,6 +39,7 @@ class EventsController < ApplicationController
 
   def destroy
     @destroy_event = Event.find(params[:id])
+    authorize! @destroy_event
     if @destroy_event.destroy
       redirect_to held_user_events_path, success: "イベントを削除しました"
     else
@@ -72,6 +75,7 @@ class EventsController < ApplicationController
 
   def detail
     @event_detail = Event.find(params[:id])
+    authorize! @event_detail
     @joined_list = @event_detail.event_joins
   end
 
