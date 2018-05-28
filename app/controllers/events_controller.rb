@@ -1,4 +1,8 @@
 class EventsController < ApplicationController
+  before_action ->{
+    require_login(user_path)
+  }, except: [:index, :show, :join]
+
   def index
     @event_list = Event.all()
   end
@@ -48,6 +52,7 @@ class EventsController < ApplicationController
   end
 
   def join
+    require_login(event_path(params[:id]))
     @event_join = EventJoin.new(user: current_user, event: Event.find(params[:id]))
     if @event_join.save
       redirect_to joined_events_path, success: "イベントに参加しました"

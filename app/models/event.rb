@@ -28,6 +28,6 @@ class Event < ApplicationRecord
   end
 
   def isJoined?(user)
-    event_joins.map{|j|j.user_id}.include?(user.id)
+    event_joins.map{|j|j.user_id}.include?(user.id) if user
   end
 end
