@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
-  validates :student_number, format: {with: /\A(#{majors.join('|')})\d{2}-\d{4}[A-Z]\z/}, uniqueness: true
+  validates :student_number, format: {with: /\A(#{majors.join('|')})\d{2}-\d{4}[A-Z]?\z/}, uniqueness: true
 
   def age
     date_format = "%Y%m%d"
