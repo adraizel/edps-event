@@ -1,26 +1,17 @@
-class Admin::EventsController < ApplicationController
-  before_action -> {
-    require_login
-  }
-  layout 'admin'
-  
+class Admin::EventsController < Admin::Base
   def index
-    authorize!
     @event_list = Event.all()
   end
 
   def show
-    authorize!
     @event_detail = Event.find(params[:id])
   end
 
   def new
-    authorize!
     @new_event = Event.new()
   end
 
   def create
-    authorize!
     @new_event = current_user.events.build(admin_event_params)
     @new_event.official = true;
     if @new_event.save
@@ -31,12 +22,10 @@ class Admin::EventsController < ApplicationController
   end
 
   def edit
-    authorize!
     @edit_event = Event.find(params[:id])
   end
 
   def update
-    authorize!
     @edit_event = Event.find(params[:id])
     @edit_event.assign_attributes(admin_event_params)
     if @edit_event.save
@@ -47,7 +36,6 @@ class Admin::EventsController < ApplicationController
   end
 
   def destroy
-    authorize!
     @destroy_event = Event.find(params[:id])
     if @destroy_event.destroy
       redirect_to admin_events_path, success: "イベントを削除しました"

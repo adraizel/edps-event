@@ -1,10 +1,4 @@
-class Admin::PagesController < ApplicationController
-  before_action -> {
-    require_login
-  }
-  layout 'admin'
-  
+class Admin::PagesController < Admin::Base
   def index
-    authorize!
   end
 end

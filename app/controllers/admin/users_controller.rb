@@ -1,26 +1,17 @@
-class Admin::UsersController < ApplicationController
-  before_action -> {
-    require_login
-  }
-  layout 'admin'
-  
+class Admin::UsersController < Admin::Base
   def index
-    authorize!
     @user_list = User.all()
   end
 
   def show
-    authorize!
     @user_detail = User.find(params[:id])
   end
 
   def new
-    authorize!
     @new_user = User.new()
   end
 
   def create
-    authorize!
     @new_user = User.new(user_param)
     if @new_user.save
       redirect_to :admin_root, success: "登録しました"
@@ -30,12 +21,10 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
-    authorize!
     @edit_user = User.find(params[:id])
   end
 
   def update
-    authorize!
     @edit_user = User.find(params[:id])
     @edit_user.assign_attributes(user_param)
     if @edit_user.save
@@ -46,7 +35,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def destroy
-    authorize!
     @destroy_user = User.find(params[:id])
     if @destroy_user.executive? == false && @destroy_user.destroy
       redirect_to :admin_root, notice: "会員情報を削除しました"
