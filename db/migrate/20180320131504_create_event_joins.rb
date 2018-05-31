@@ -7,6 +7,6 @@ class CreateEventJoins < ActiveRecord::Migration[5.1]
       
       t.timestamps
     end
-    add_index :event_joins, [:user, :event], unique: true
+    add_index :event_joins, [:user_id, :event_id], unique: true
   end
 end
