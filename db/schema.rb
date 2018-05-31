@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20180320131504) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_joins_on_event_id"
+    t.index ["user_id", "event_id"], name: "index_event_joins_on_user_id_and_event_id", unique: true
     t.index ["user_id"], name: "index_event_joins_on_user_id"
-    t.index [nil, nil], name: "index_event_joins_on_user_and_event", unique: true
   end
 
   create_table "events", force: :cascade do |t|
