@@ -1,4 +1,8 @@
 class EventsController < ApplicationController
+  before_action ->{
+    require_login(user_path)
+  }, except: [:index, :show, :join]
+
   def index
     @event_list = Event.all()
   end
@@ -23,10 +27,12 @@ class EventsController < ApplicationController
 
   def edit
     @edit_event = Event.find(params[:id])
+    authorize! @edit_event
   end
 
   def update
     @edit_event = Event.find(params[:id])
+    authorize! @edit_event
     @edit_event.assign_attributes(event_params)
     if @edit_event.save
       redirect_to detail_user_event_path(@edit_event), success: "情報を更新しました"
@@ -37,6 +43,7 @@ class EventsController < ApplicationController
 
   def destroy
     @destroy_event = Event.find(params[:id])
+    authorize! @destroy_event
     if @destroy_event.destroy
       redirect_to held_user_events_path, success: "イベントを削除しました"
     else
@@ -45,6 +52,7 @@ class EventsController < ApplicationController
   end
 
   def join
+    require_login(event_path(params[:id]))
     @event_join = EventJoin.new(user: current_user, event: Event.find(params[:id]))
     if @event_join.save
       redirect_to joined_events_path, success: "イベントに参加しました"
@@ -72,6 +80,7 @@ class EventsController < ApplicationController
 
   def detail
     @event_detail = Event.find(params[:id])
+    authorize! @event_detail
     @joined_list = @event_detail.event_joins
   end
 
