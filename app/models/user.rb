@@ -1,18 +1,44 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id               :integer          not null, primary key
+#  email            :string           not null
+#  crypted_password :string
+#  salt             :string
+#  name             :string           not null
+#  student_number   :string           not null
+#  birthday         :date             not null
+#  allergy_data     :string           default("")
+#  remark           :string           default("")
+#  executive        :boolean          default(FALSE)
+#  mailer           :boolean          default(FALSE)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  
+
+  # 定数
+  MAJORS = %w(CM HP HS LA LB LG LK LR LT LZ NE A E J M W)
+
+
+  # 関連
   has_many :event_joins, dependent: :destroy
   has_many :events, dependent: :destroy
-  
-  majors = %w(CM HP HS LA LB LG LK LR LT LZ NE A E J M W)
-  
+
+
+  # バリデーション
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
-  validates :student_number, format: {with: /\A(#{majors.join('|')})\d{2}-\d{4}[A-Z]\z/}, uniqueness: true
+  validates :student_number, format: {with: /\A(#{MAJORS.join('|')})\d{2}-\d{4}[A-Z]?\z/}, uniqueness: true
 
+
+  # メソッド
   def age
     date_format = "%Y%m%d"
     (Date.today.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
@@ -42,4 +68,6 @@ class User < ApplicationRecord
     end
     Date.today.year - y + 1
   end
+
+  # プライベートメソッド
 end

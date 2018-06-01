@@ -1,3 +1,21 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  description :text
+#  charge      :integer
+#  location    :string
+#  start_time  :datetime
+#  join_limit  :datetime
+#  user_id     :integer
+#  official    :boolean
+#  deleted     :boolean          default(FALSE)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Event < ApplicationRecord
   belongs_to :user
   has_many :event_joins, dependent: :destroy
@@ -28,6 +46,6 @@ class Event < ApplicationRecord
   end
 
   def isJoined?(user)
-    event_joins.map{|j|j.user_id}.include?(user.id)
+    event_joins.map{|j|j.user_id}.include?(user.id) if user
   end
 end
