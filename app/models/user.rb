@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
 
   # 関連
-  has_many :event_joins, dependent: :destroy
+  has_many :user_events, dependent: :destroy
   has_many :events, dependent: :destroy
 
 

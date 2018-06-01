@@ -18,7 +18,7 @@ class EventsController < ApplicationController
   def create
     @new_event = current_user.events.build(event_params)
     if @new_event.save
-      EventJoin.create(user: current_user, event: @new_evemt)
+      UserEvents.create(user: current_user, event: @new_evemt)
       redirect_to detail_user_event_path(@new_event)
     else
       render :new
@@ -53,8 +53,8 @@ class EventsController < ApplicationController
 
   def join
     require_login(event_path(params[:id]))
-    @event_join = EventJoin.new(user: current_user, event: Event.find(params[:id]))
-    if @event_join.save
+    @user_event = UserEvents.new(user: current_user, event: Event.find(params[:id]))
+    if @user_event.save
       redirect_to joined_events_path, success: "イベントに参加しました"
     else
 
@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   end
 
   def unjoin
-    @destroy_join = EventJoin.find_by(user: current_user, event: Event.find(params[:id]))
+    @destroy_join = UserEvents.find_by(user: current_user, event: Event.find(params[:id]))
     if @destroy_join.destroy
       redirect_to joined_events_path, success: "参加を取り消しました"
     else
@@ -71,7 +71,7 @@ class EventsController < ApplicationController
   end
 
   def joined
-    @joined_list = current_user.event_joins
+    @joined_list = current_user.user_events
   end
 
   def held
@@ -81,7 +81,7 @@ class EventsController < ApplicationController
   def detail
     @event_detail = Event.find(params[:id])
     authorize! @event_detail
-    @joined_list = @event_detail.event_joins
+    @joined_list = @event_detail.user_events
   end
 
   private

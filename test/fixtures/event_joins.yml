@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: event_joins
+# Table name: user_events
 #
 #  id         :integer          not null, primary key
 #  user       :integer

@@ -18,7 +18,7 @@
 
 class Event < ApplicationRecord
   belongs_to :user
-  has_many :event_joins, dependent: :destroy
+  has_many :user_events, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true
@@ -46,6 +46,6 @@ class Event < ApplicationRecord
   end
 
   def isJoined?(user)
-    event_joins.map{|j|j.user_id}.include?(user.id) if user
+    user_events.map{|j|j.user_id}.include?(user.id) if user
   end
 end

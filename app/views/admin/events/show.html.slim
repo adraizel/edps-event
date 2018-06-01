@@ -5,7 +5,7 @@ p
 = render '/events/event_detail', detail: @event_detail do
   div
     h4 参加者一覧
-    - if @event_detail.event_joins.present?
+    - if @event_detail.user_events.present?
       p CSVダウンロード
       p PDFダウンロード(A4)
       table.table
@@ -14,7 +14,7 @@ p
           th 学籍番号
           th 名前
           th 成人
-        = render partial: '/events/join_list', collection: @event_detail.event_joins
+        = render partial: '/events/join_list', collection: @event_detail.user_events
     - else
       p 参加者はまだいません
     = link_to "一覧に戻る", admin_events_path, class: 'btn'

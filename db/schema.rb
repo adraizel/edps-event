@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20180000000003) do
 
-  create_table "event_joins", force: :cascade do |t|
-    t.integer "user"
-    t.integer "event"
-    t.text "remark", default: ""
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index [nil, nil], name: "index_event_joins_on_user_id_and_event_id", unique: true
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -33,6 +24,15 @@ ActiveRecord::Schema.define(version: 20180000000003) do
     t.boolean "deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "user_events", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "event_id"
+    t.text "remark", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "event_id"], name: "index_user_events_on_user_id_and_event_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

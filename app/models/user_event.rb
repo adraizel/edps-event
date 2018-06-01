@@ -1,16 +1,16 @@
 # == Schema Information
 #
-# Table name: event_joins
+# Table name: user_events
 #
 #  id         :integer          not null, primary key
-#  user       :integer
-#  event      :integer
+#  user_id    :integer
+#  event_id   :integer
 #  remark     :text             default("")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
 
-class EventJoin < ApplicationRecord
+class UserEvent < ApplicationRecord
   belongs_to :user
   belongs_to :event
 
