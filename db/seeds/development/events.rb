@@ -6,7 +6,7 @@ Event.create([
     location: Faker::Pokemon.location,
     start_time: Date.today.tomorrow,
     join_limit: Date.today,
-    user_id: rand(0..2),
+    owner_id: rand(1..3),
     official: true
   }
 ])
@@ -20,7 +20,7 @@ Event.create([
       location: Faker::Pokemon.location,
       start_time: Date.today.tomorrow,
       join_limit: Date.today,
-      user_id: rand(0..2)
+      owner_id: rand(1..3)
     }
   ])
 end

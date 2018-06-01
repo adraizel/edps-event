@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   # 関連
   has_many :user_events, dependent: :destroy
-  has_many :events, dependent: :destroy
+  has_many :events, foreign_key: 'owner_id', dependent: :destroy
 
 
   # バリデーション
