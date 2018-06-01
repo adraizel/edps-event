@@ -19,7 +19,7 @@
 class Event < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   has_many :user_events, dependent: :destroy
-  # has_many :user
+  has_many :users, through: :user_events
 
   validates :title, presence: true
   validates :description, presence: true
