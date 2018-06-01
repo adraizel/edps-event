@@ -31,10 +31,10 @@ number = 12
   User.create({
     email: Faker::Internet.safe_email(name),
     name: name,
-    student_number: "NE27-#{number.to_s.rjust(4, '0')}D",
+    student_number: "NE27-#{n.to_s.rjust(4, '0')}D",
     birthday: Date.new(1997, 1, 1),
     allergy_data: allergy_texts.sample,
-    remark: "ナンバー:#{number}",
+    remark: "ナンバー:#{n}",
     executive: false,
     mailer: false,
     password: 'password',

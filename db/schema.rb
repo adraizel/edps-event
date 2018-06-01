@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180000000003) do
     t.datetime "start_time"
     t.datetime "join_limit"
     t.integer "user_id"
-    t.boolean "official"
+    t.boolean "official", default: false
     t.boolean "deleted", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

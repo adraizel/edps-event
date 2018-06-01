@@ -1,10 +1,11 @@
 class Admin::EventsController < Admin::Base
   def index
-    @event_list = Event.all()
+    @event_list = Event.all
   end
 
   def show
     @event_detail = Event.find(params[:id])
+    @user_events = @event_detail.user_events.includes(:user)
   end
 
   def new

@@ -8,7 +8,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.datetime :start_time
       t.datetime :join_limit
       t.integer  :user_id
-      t.boolean  :official
+      t.boolean  :official,     default: false
       t.boolean  :deleted,      default: false
 
       t.timestamps
