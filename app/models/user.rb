@@ -44,17 +44,17 @@ class User < ApplicationRecord
     (Date.today.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
   end
 
-  def isAdult?
+  def adult?
     20 <= age
   end
 
-  def ageByDate(date)
+  def age_by_date(date)
     date_format = "%Y%m%d"
     (date.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
   end
 
-  def isAdultByDate?(date)
-    20 <= ageByDate(date)
+  def adult_by_date?(date)
+    20 <= age_by_date(date)
   end
 
   def grade
