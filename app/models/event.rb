@@ -9,8 +9,8 @@
 #  location    :string
 #  start_time  :datetime
 #  join_limit  :datetime
-#  user_id     :integer
-#  official    :boolean
+#  owner_id    :integer
+#  official    :boolean          default(FALSE)
 #  deleted     :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
@@ -19,7 +19,7 @@
 class Event < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   has_many :user_events, dependent: :destroy
-  has_many :users, through: :user_events
+  has_many :participant, class_name: 'UserEvent', foreign_key: 'event_id', dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true

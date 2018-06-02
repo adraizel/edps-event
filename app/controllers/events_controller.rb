@@ -53,7 +53,7 @@ class EventsController < ApplicationController
 
   def join
     require_login(event_path(params[:id]))
-    @user_event = UserEvents.new(user: current_user, event: Event.find(params[:id]))
+    @user_event = UserEvent.new(user: current_user, event: Event.find(params[:id]))
     if @user_event.save
       redirect_to joined_events_path, success: "イベントに参加しました"
     else
