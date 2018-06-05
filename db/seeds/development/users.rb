@@ -24,14 +24,15 @@ User.create([
   },
 ])
 
-allergy_texts = %w(大豆 鶏肉 豚肉 まつたけ プログラミング言語)
+allergy_texts = %w(大豆 鶏肉 豚肉 松茸 プログラミング言語)
 number = 12
 2.upto number do |n|
   name = Faker::Internet.user_name(Faker::StarWars.character, %w(. _ -))
+  grd = 27 + n % 4
   User.create({
     email: Faker::Internet.safe_email(name),
     name: name,
-    student_number: "NE27-#{n.to_s.rjust(4, '0')}D",
+    student_number: "NE#{grd}-#{n.to_s.rjust(4, '0')}D",
     birthday: Date.new(1997, 1, 1),
     allergy_data: allergy_texts.sample,
     remark: "ナンバー:#{n}",
