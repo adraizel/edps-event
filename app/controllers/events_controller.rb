@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   end
 
   def unjoin
-    @destroy_join = UserEvents.find_by(user: current_user, event: Event.find(params[:id]))
+    @destroy_join = UserEvent.find_by(user: current_user, event: Event.find(params[:id]))
     if @destroy_join.destroy
       redirect_to joined_events_path, success: "参加を取り消しました"
     else
@@ -75,7 +75,7 @@ class EventsController < ApplicationController
   end
 
   def held
-    @held_list = current_user.events
+    @held_list = current_user.held_events
   end
 
   def detail

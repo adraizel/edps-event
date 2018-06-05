@@ -49,7 +49,7 @@ class User < ApplicationRecord
     20 <= age(date)
   end
 
-  def grade
+  def grade(text = false)
     spl = student_number.split('-')
     spl[0].gsub!(/[A-Z]{2}/,'')
     spl[1] = spl[1].slice!(0)
@@ -58,7 +58,18 @@ class User < ApplicationRecord
     else
       y = 1988 + spl[0].to_i
     end
-    Date.today.year - y + 1
+    gr = Date.today.year - y + 1
+    if text
+      if gr > 4
+        "OB/OG"
+      elsif gr < 1
+        "入学予定"
+      else
+        "#{gr}年"
+      end
+    else
+      gr
+    end
   end
 
   # プライベートメソッド
