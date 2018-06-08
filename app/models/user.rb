@@ -27,7 +27,7 @@ class User < ApplicationRecord
   # 関連
   has_many :user_events, dependent: :destroy
   has_many :held_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
-  has_many :joined_events, class_name: 'UserEvent', foreign_key: 'user_id', dependent: :destroy
+  has_many :joined_events, through: :user_events, source: :event
 
   before_validation :set_entrance_year
 
