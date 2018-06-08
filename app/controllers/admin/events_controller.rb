@@ -4,12 +4,12 @@ class Admin::EventsController < Admin::Base
   end
 
   def show
-    @event_detail = Event.find(params[:id])
-    @user_events = @event_detail.user_events.includes(:user)
+    @event = Event.find(params[:id])
+    @participated_users = @event.participated_user.order(entrance_year: :desc, student_number: :asc)
   end
 
   def new
-    @new_event = Event.new()
+    @new_event = Event.new
   end
 
   def create

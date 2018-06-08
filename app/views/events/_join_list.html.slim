@@ -1,13 +1,13 @@
 tr
   td
-    = join_list.user.grade(true)
+    = join_list.grade(true)
   td
-    = join_list.user.student_number
+    = join_list.student_number
   td
-    = join_list.user.name
+    = join_list.name
   td
-    = join_list.user.adult? ? "○" : "×"
+    = join_list.adult? ? "○" : "×"
   td
-    = join_list.user.allergy_data
+    = join_list.allergy_data
   td
     = join_list.remark

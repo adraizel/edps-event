@@ -7,6 +7,7 @@
 #  crypted_password :string
 #  salt             :string
 #  name             :string           not null
+#  entrance_year    :integer          not null
 #  student_number   :string           not null
 #  birthday         :date             not null
 #  allergy_data     :string           default("")
