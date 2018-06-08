@@ -51,7 +51,11 @@ class User < ApplicationRecord
   end
 
   def grade(text = false)
-    gr = Date.today.year - entrance_year + 1
+    if Date.today.month <= 3
+      gr = Date.today.year - entrance_year
+    else
+      gr = Date.today.year - entrance_year + 1
+    end
     if text
       if gr > 4
         "OB/OG"
