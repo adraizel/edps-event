@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::Base
   def index
-    @user_list = User.all()
+    @user_list = User.all.order(entrance_year: :desc, student_number: :asc).load
   end
 
   def show

@@ -29,6 +29,7 @@ class User < ApplicationRecord
   has_many :held_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
   has_many :joined_events, class_name: 'UserEvent', foreign_key: 'user_id', dependent: :destroy
 
+  before_validation :set_entrance_year
 
   # バリデーション
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
@@ -50,15 +51,7 @@ class User < ApplicationRecord
   end
 
   def grade(text = false)
-    spl = student_number.split('-')
-    spl[0].gsub!(/[A-Z]{2}/,'')
-    spl[1] = spl[1].slice!(0)
-    if spl[1].match('1')
-      y = ("20" + spl[0]).to_i
-    else
-      y = 1988 + spl[0].to_i
-    end
-    gr = Date.today.year - y + 1
+    gr = Date.today.year - entrance_year + 1
     if text
       if gr > 4
         "OB/OG"
@@ -73,4 +66,16 @@ class User < ApplicationRecord
   end
 
   # プライベートメソッド
+  private
+  def set_entrance_year
+    spl = student_number.split('-')
+    spl[0].gsub!(/[A-Z]{2}/,'')
+    spl[1] = spl[1].slice!(0)
+    if spl[1].match('1')
+      y = ("20" + spl[0]).to_i
+    else
+      y = 1988 + spl[0].to_i
+    end
+    self.entrance_year = y
+  end
 end

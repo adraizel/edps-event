@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20180000000003) do
     t.string "crypted_password"
     t.string "salt"
     t.string "name", null: false
+    t.integer "entrance_year", null: false
     t.string "student_number", null: false
     t.date "birthday", null: false
     t.string "allergy_data", default: ""
