@@ -16,7 +16,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @new_event = current_user.events.build(event_params)
+    @new_event = current_user.held_events.build(event_params)
     if @new_event.save
       UserEvent.create(user: current_user, event: @new_evemt)
       redirect_to detail_user_event_path(@new_event)
@@ -81,7 +81,7 @@ class EventsController < ApplicationController
   def detail
     @event_detail = Event.find(params[:id])
     authorize! @event_detail
-    @joined_list = @event_detail.user_events
+    @participated_users = @event_detail.participated_user.order(entrance_year: :desc, student_number: :asc)
   end
 
   private

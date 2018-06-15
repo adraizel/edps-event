@@ -2,10 +2,10 @@ h1
   | Events#edit
 p
   | Find me in app/views/events/detail.html.erb
-= render 'event_detail', detail: @event_detail do
+= render 'shared/events/event_detail', detail: @event_detail do
   div
     h4 参加者一覧
-    - if @event_detail.user_events.present?
+    - if @participated_users.present?
       p CSVダウンロード
       p PDFダウンロード(A4)
       table.table
@@ -16,9 +16,9 @@ p
           th 成人
           th アレルギー情報
           th 備考
-        = render partial: 'join_list', collection: @event_detail.user_events
+        = render partial: 'shared/events/join_list', collection: @participated_users
     - else
       p 参加者はまだいません
-    = link_to "一覧に戻る", held_user_events_path, class: 'btn'
-    = link_to "編集", edit_user_event_path(@event_detail), class: 'btn'
-    = link_to "削除", user_event_path(@event_detail), method: :delete, class: 'btn btn-error'
+    = link_to "一覧に戻る", held_user_events_path, class: 'btn btn-primary'
+    = link_to "編集", edit_user_event_path(@event_detail), class: 'btn btn-warning'
+    = link_to "削除", user_event_path(@event_detail), method: :delete, class: 'btn btn-danger'
