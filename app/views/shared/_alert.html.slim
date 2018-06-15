@@ -1,0 +1,3 @@
+- flash.each do |k,v|
+  = content_tag :div, class: "notification is-#{k}", data: {'data-turbolinks' => false} do
+    = v
