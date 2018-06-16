@@ -37,9 +37,9 @@ class Admin::UsersController < Admin::Base
   def destroy
     @destroy_user = User.find(params[:id])
     if @destroy_user.executive? == false && @destroy_user.destroy
-      redirect_to :admin_root, notice: "会員情報を削除しました"
+      redirect_to :admin_root, info: "会員情報を削除しました"
     else
-      flash.now[:error] = "幹部扱いのユーザーは削除できません"
+      flash.now[:danger] = "幹部扱いのユーザーは削除できません"
       redirect_to admin_user_path(@destroy_user)
     end
   end

@@ -1,5 +1,13 @@
-nav
-  = link_to "一般向けTOP", root_path
-  = link_to "管理者TOP", admin_root_path
-  = link_to "イベント一覧", admin_events_path
-  = link_to "ユーザー一覧", admin_users_path
+nav.navbar.is-black role="navigation" aria-label="main navigation"
+  div.navbar-brand  
+    = link_to "管理者TOP", admin_root_path, class: 'navbar-item'
+    a.navbar-burger role="button" aria-label="menu" aria-expanded="false"
+      span aria-hidden="true"
+      span aria-hidden="true"
+      span aria-hidden="true"
+  .navbar-menu
+    .navbar-start
+      = link_to "イベント一覧", admin_events_path, class: 'navbar-item'
+      = link_to "ユーザー一覧", admin_users_path, class: 'navbar-item'
+    .navbar-end
+      = link_to "一般向けTOP", root_path, class: 'navbar-item'

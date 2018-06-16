@@ -1,5 +1,10 @@
-.tab-controll
-  = link_to "ユーザー情報編集", edit_user_path
-  = link_to "参加イベント", joined_events_path
-  = link_to "開催したイベント", held_user_events_path
-  = link_to "イベントを開催する", new_user_event_path
+.tabs.is-centered
+  ul
+    li class="#{request.path_info == edit_user_path ? "is-active" : ''}"
+      = link_to "ユーザー情報編集", edit_user_path
+    li class="#{request.path_info == joined_events_path ? "is-active" : ''}"
+      = link_to "参加イベント", joined_events_path
+    li class="#{request.path_info == held_user_events_path ? "is-active" : ''}"
+      = link_to "開催したイベント", held_user_events_path
+    li class="#{request.path_info == new_user_event_path ? "is-active" : ''}"
+      = link_to "イベントを開催する", new_user_event_path

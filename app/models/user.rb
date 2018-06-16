@@ -73,14 +73,18 @@ class User < ApplicationRecord
   # プライベートメソッド
   private
   def set_entrance_year
-    spl = student_number.split('-')
-    spl[0].gsub!(/[A-Z]{2}/,'')
-    spl[1] = spl[1].slice!(0)
-    if spl[1].match('1')
-      y = ("20" + spl[0]).to_i
-    else
-      y = 1988 + spl[0].to_i
+    begin
+      spl = student_number.split('-')
+      spl[0].gsub!(/[A-Z]{2}/,'')
+      spl[1] = spl[1].slice!(0)
+      if spl[1].match('1')
+        y = ("20" + spl[0]).to_i
+      else
+        y = 1988 + spl[0].to_i
+      end
+      self.entrance_year = y
+    rescue
+      nil
     end
-    self.entrance_year = y
   end
 end

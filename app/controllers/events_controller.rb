@@ -47,7 +47,7 @@ class EventsController < ApplicationController
     if @destroy_event.destroy
       redirect_to held_user_events_path, success: "イベントを削除しました"
     else
-      render detail_user_event_path(@destroy_event), error: "削除に失敗しました"
+      render detail_user_event_path(@destroy_event), danger: "削除に失敗しました"
     end
   end
 

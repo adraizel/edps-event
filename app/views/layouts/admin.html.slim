@@ -9,7 +9,7 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1"
     <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   body
+    = render "admin/shared/admin_navigation"
     .container
-      = render "admin/shared/admin_navigation"
       = render "shared/alert"
       = yield

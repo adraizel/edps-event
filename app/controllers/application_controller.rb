@@ -17,4 +17,6 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+  add_flash_types :primary, :link, :info, :success, :warning, :danger
 end

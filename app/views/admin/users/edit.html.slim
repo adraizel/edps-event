@@ -3,34 +3,51 @@ h1
 p
   | Find me in app/views/admin/users/edit.html.erb
 = form_with model: @edit_user, url: admin_user_path(@edit_user), method: :patch, local: true do |f|
-  = f.label :email
-  = show_errors(@edit_user.errors.full_messages_for(:email))
-  = f.email_field :email, class: 'form-control'
-  = f.label :password
-  = show_errors(@edit_user.errors.full_messages_for(:password))
-  = f.password_field :password, class: 'form-control'
-  = f.label :password_confirmation
-  = show_errors(@edit_user.errors.full_messages_for(:password_confirmation))
-  = f.password_field :password_confirmation, class: 'form-control'
-  = f.label :name
-  = show_errors(@edit_user.errors.full_messages_for(:name))
-  = f.text_field :name, class: 'form-control'
-  = f.label :student_number
-  = f.text_field :student_number, class: 'form-control'
-  = f.label :birthday
-  .inline_datetime
-    = f.date_select :birthday, {start_year: Date.today.year - 30, end_year: Date.today.year - 17}, class: 'form-control'
-  = f.label :allergy_data
-  = f.text_field :allergy_data, class: 'form-control'
-  = f.label :remark
-  = f.text_field :remark, class: 'form-control'
-  = f.label "上位権限"
-  .inline_checkbox
-    label.fancy-checkbox
-      = f.check_box :executive
-      span 幹部扱い(メール送信の許可を含む)
-    label.fancy-checkbox
-      = f.check_box :mailer
-      span メール送信の許可
-  = f.submit class: 'btn btn-primary'
-  = link_to "詳細に戻る", admin_user_path(@edit_user), class: "btn btn-primary"
+  .field
+    = f.label :email, class: 'label'
+    = show_errors(@edit_user.errors.full_messages_for(:email))
+    .control
+      = f.email_field :email, class: 'input'
+  .field
+    = f.label :password, class: 'label'
+    = show_errors(@edit_user.errors.full_messages_for(:password))
+    .control
+      = f.password_field :password, class: 'input'
+  .field
+    = f.label :password_confirmation, class: 'label'
+    = show_errors(@edit_user.errors.full_messages_for(:password_confirmation))
+    .control
+      = f.password_field :password_confirmation, class: 'input'
+  .field
+    = f.label :name, class: 'label'
+    = show_errors(@edit_user.errors.full_messages_for(:name))
+    .control
+      = f.text_field :name, class: 'input'
+  .field
+    = f.label :student_number, class: 'label'
+    .control
+      = f.text_field :student_number, class: 'input'
+  .field
+    = f.label :birthday, class: 'label'
+    .control
+      = f.date_select :birthday, {start_year: Date.today.year - 30, end_year: Date.today.year - 17}, class: 'input'
+  .field
+    = f.label :allergy_data, class: 'label'
+    .control
+      = f.text_field :allergy_data, class: 'input'
+  .field
+    = f.label :remark, class: 'label'
+    .control
+      = f.text_field :remark, class: 'input'
+  .field
+    = f.label "上位権限", class: 'label'
+    .control
+      label
+        = f.check_box :executive
+        span 幹部扱い(メール送信の許可を含む)
+    .control
+      label
+        = f.check_box :mailer
+        span メール送信の許可
+  = f.submit class: 'button is-info'
+  = link_to "詳細に戻る", admin_user_path(@edit_user), class: "button is-info"

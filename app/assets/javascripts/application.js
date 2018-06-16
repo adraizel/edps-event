@@ -16,7 +16,7 @@
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
-  $(".alert .icon-close").click(function() {
+  $("button.delete").click(function() {
     $(this).parent().remove();
   }); 
 
@@ -24,5 +24,21 @@ $(document).on('turbolinks:load', function() {
     if(!$(e.target).is('a')){
       window.location = $(e.target).closest('tr').data('href');
     }
-  })
+  });
+
+  $('.navbar-burger').click(function() {
+    $('.navbar-menu').toggle('is-active');
+  });
  });
+
+var timer = false;
+$(window).resize(function() {
+    if (timer !== false) {
+        clearTimeout(timer);
+    }
+    timer = setTimeout(function() {
+        if($(window).width() >= 1088){
+          $('.navbar-menu').removeAttr('style')
+        }
+    }, 200);
+});

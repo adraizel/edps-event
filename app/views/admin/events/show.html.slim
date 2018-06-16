@@ -6,9 +6,16 @@ p
   div
     h4 参加者一覧
     - if @participated_users.present?
-      p CSVダウンロード
-      p PDFダウンロード(A4)
-      table.table
+      .buttons
+        a.button
+          span.icon.is-small
+            i.far.fa-file-alt
+          span CSVダウンロード
+        a.button
+          span.icon.is-small
+            i.far.fa-file-pdf
+          span PDFダウンロード(A4)
+      table.table.is-bordered.is-striped.is-hoverable.is-fullwidth
         tr
           th 学年
           th 学籍番号
@@ -19,6 +26,10 @@ p
         = render partial: 'shared/events/join_list', collection: @participated_users
     - else
       p 参加者はまだいません
-    = link_to "一覧に戻る", admin_events_path, class: 'btn btn-primary'
-    = link_to "編集", edit_admin_event_path(@event), class: 'btn btn-warning'
-    = link_to "削除", admin_event_path(@event), method: :delete, class: 'btn btn-danger'
+    .field.is-grouped
+      .control
+        = link_to "一覧に戻る", admin_events_path, class: 'button is-info'
+      .control
+        = link_to "編集", edit_admin_event_path(@event), class: 'button is-warning'
+      .control
+        = link_to "削除", admin_event_path(@event), method: :delete, class: 'button is-danger'

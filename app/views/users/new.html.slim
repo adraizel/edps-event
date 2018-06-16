@@ -3,26 +3,39 @@ h1
 p
   | Find me in app/views/users/new.html.erb
 = form_with model: @new_user, url: user_path, method: :post,  local: true do |f|
-  = f.label :email
-  = show_errors(@new_user.errors.full_messages_for(:email))
-  = f.email_field :email, class: 'form-control'
-  = f.label :password
-  = show_errors(@new_user.errors.full_messages_for(:password))
-  = f.password_field :password, class: 'form-control'
-  = f.label :password_confirmation
-  = show_errors(@new_user.errors.full_messages_for(:password_confirmation))
-  = f.password_field :password_confirmation, class: 'form-control'
-  = f.label :name
-  = show_errors(@new_user.errors.full_messages_for(:name))
-  = f.text_field :name, class: 'form-control'
-  = f.label :student_number
-  = show_errors(@new_user.errors.full_messages_for(:student_number))
-  = f.text_field :student_number, class: 'form-control'
-  = f.label :birthday
-  .inline_datetime
-    = f.date_select :birthday, {start_year: Date.today.year - 30, end_year: Date.today.year - 17}, class: 'form-control'
-  = f.label :allergy_data
-  = f.text_field :allergy_data, class: 'form-control'
-  = f.label :remark
-  = f.text_field :remark, class: 'form-control'
-  = f.submit class: 'btn btn-primary'
+  .field
+    = f.label :email, class: 'label'
+    = show_errors(@new_user.errors.full_messages_for(:email))
+    .control
+      = f.email_field :email, class: 'input'
+  .field
+    = f.label :password, class: 'label'
+    = show_errors(@new_user.errors.full_messages_for(:password))
+    .control
+      = f.password_field :password, class: 'input'
+  .field
+    = f.label :password_confirmation, class: 'label'
+    = show_errors(@new_user.errors.full_messages_for(:password_confirmation))
+    .control
+      = f.password_field :password_confirmation, class: 'input'
+  .field
+    = f.label :name, class: 'label'
+    = show_errors(@new_user.errors.full_messages_for(:name))
+    = f.text_field :name, class: 'input'
+  .field
+    = f.label :student_number, class: 'label'
+    = show_errors(@new_user.errors.full_messages_for(:student_number))
+    = f.text_field :student_number, class: 'input'
+  .field
+    = f.label :birthday, class: 'label'
+    .control
+      = f.date_select :birthday, {start_year: Date.today.year - 30, end_year: Date.today.year - 17}, class: 'input'
+  .field
+    = f.label :allergy_data, class: 'label'
+    .control
+      = f.text_field :allergy_data, class: 'input'
+  .field
+    = f.label :remark, class: 'label'
+    .control
+      = f.text_field :remark, class: 'input'
+  = f.submit class: 'button is-info'

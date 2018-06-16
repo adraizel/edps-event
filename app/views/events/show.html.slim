@@ -3,9 +3,11 @@ h1
 p
   | Find me in app/views/events/show.html.erb
 = render 'shared/events/event_detail', detail: @event_detail do
-  div
-    = link_to "一覧に戻る", events_path, class: "btn btn-primary"
-    - if @event_detail.isJoined?(current_user)
-      = link_to '参加を取り消す', unjoin_event_path(@event_detail),  method: :post, class: 'btn btn-error', data: {confirm: '参加を取り消しますよろしいですか？'}
-    - else
-      = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'btn btn-success'
+  .field.is-grouped
+    .control
+      = link_to "一覧に戻る", events_path, class: "button is-info"
+    .control
+      - if @event_detail.isJoined?(current_user)
+        = link_to '参加を取り消す', unjoin_event_path(@event_detail),  method: :post, class: 'button is-danger', data: {confirm: '参加を取り消しますよろしいですか？'}
+      - else
+        = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'button is-success'
