@@ -4,5 +4,5 @@ p
   | Find me in app/views/events/joined.html.erb
 = render :partial => 'users/user_nav'
 - @joined_list.each do |list|
-  = link_to list.event.title, event_path(list.event.id)
-  = link_to '参加を取り消す', unjoin_event_path(list.event.id),  method: :post, class: 'button is-danger', data: {confirm: '参加を取り消しますよろしいですか？'}
+  = link_to list.title, event_path(list)
+  = link_to '参加を取り消す', unjoin_event_path(list),  method: :post, class: 'button is-danger', data: {confirm: '参加を取り消しますよろしいですか？'}

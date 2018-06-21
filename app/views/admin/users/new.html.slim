@@ -2,6 +2,7 @@ h1
   | Admin::Users#new
 p
   | Find me in app/views/admin/users/new.html.erb
+= render partial: 'user_nav'
 = form_with model: @new_user, url: admin_users_path, method: :post,  local: true do |f|
   .field
     = f.label :email, class: 'label'

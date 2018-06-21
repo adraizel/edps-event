@@ -1,6 +1,15 @@
 class Admin::UsersController < Admin::Base
   def index
-    @user_list = User.all.order(entrance_year: :desc, student_number: :asc).load
+    pibot = Date.today.month <= 3 ? Date.today.year - 1 : Date.today.year
+    d = [0, -1, -2, -3, -4].map!{|r| r + pibot}
+
+    if params[:grade].present? && 0 <= params[:grade].to_i && params[:grade].to_i <= 3
+      @user_list = User.where(entrance_year: d[params[:grade].to_i]).page(params[:page]).order(student_number: :asc)
+    elsif params[:grade].present? && params[:grade].to_i == 4
+      @user_list = User.where('entrance_year <= ?', d[params[:grade].to_i]).page(params[:page]).order(student_number: :asc)
+    else
+      @user_list = User.all.page(params[:page]).order(entrance_year: :desc, student_number: :asc)
+    end
   end
 
   def show

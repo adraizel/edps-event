@@ -2,7 +2,13 @@ h1
   | Events#new
 p
   | Find me in app/views/events/new.html.erb
-= render :partial => 'users/user_nav'  
+= render :partial => 'users/user_nav' 
+- if current_user.executive?
+  p.notification.is-warning
+    | マイページでイベントを登録した場合、ユーザーイベントとして登録されます。
+    br
+    | 公式イベントで登録する場合は#{link_to 'こちらから登録してください', new_admin_event_path}
+    button.delete 
 = form_with model: @new_event, url: user_events_path, method: :post, local: true do |f|
   .field
     = f.label :title, class: 'label'

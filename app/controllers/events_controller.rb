@@ -71,7 +71,7 @@ class EventsController < ApplicationController
   end
 
   def joined
-    @joined_list = current_user.user_events
+    @joined_list = current_user.joined_events
   end
 
   def held

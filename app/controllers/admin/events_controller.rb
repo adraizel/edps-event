@@ -1,6 +1,12 @@
 class Admin::EventsController < Admin::Base
   def index
-    @event_list = Event.all
+    if params[:official].nil?
+      @event_list = Event.all.page(params[:page])
+    elsif params[:official] == 'true'
+      @event_list = Event.where(official: true).page(params[:page])
+    else
+      @event_list = Event.where(official: false).page(params[:page])
+    end
   end
 
   def show
