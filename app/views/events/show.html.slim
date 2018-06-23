@@ -10,4 +10,18 @@ p
       - if @event_detail.isJoined?(current_user)
         = link_to '参加を取り消す', unjoin_event_path(@event_detail),  method: :post, class: 'button is-danger', data: {confirm: '参加を取り消しますよろしいですか？'}
       - else
-        = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'button is-success'
+        / = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'button is-success'
+        button.join-modal.button.is-success 参加する
+
+.modal
+  .modal-background
+  .modal-card
+    header.modal-card-head
+      p.modal-card-title イベントに参加する
+      button.delete aria-label="close"
+    = form_with url: join_event_path(@event_detail) do |f|
+      section.modal-card-body
+        p 何か伝える事があれば記入してください
+        = f.text_field :remark, class: 'input'
+      footer.modal-card-foot
+        = f.submit '参加する', class: 'button is-success'

@@ -23,7 +23,7 @@ p
           th 成人
           th アレルギー情報
           th 備考
-        = render partial: 'shared/events/join_list', collection: @participated_users
+        = render partial: 'shared/events/join_list', collection: @participated_users, locals: {remarks: @participated_users_remark} 
     - else
       p 参加者はまだいません
     .field.is-grouped

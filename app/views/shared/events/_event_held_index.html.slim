@@ -1,5 +1,7 @@
-.event-info
+.card.event-info
   = link_to list.title, detail_user_event_path(list)
-  = list.location
+  p 開催場所#{list.location}
   - if 0 < list.charge
-    = "#{list.charge}円"
+    p 参加費用 #{list.charge}円
+  - else
+    p 参加費用無し

@@ -9,14 +9,15 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
 //= require jquery
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/i18n/datepicker-ja
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
-  $("button.delete").click(function() {
+  $(".notification button.delete").click(function() {
     $(this).parent().remove();
   }); 
 
@@ -28,6 +29,27 @@ $(document).on('turbolinks:load', function() {
 
   $('.navbar-burger').click(function() {
     $('.navbar-menu').toggle('is-active');
+  });
+
+  dateFormat = 'yy年mm月dd日';
+  $('.date-picker').datepicker({
+    dateFormat: dateFormat,
+    changeYear: true,
+    changeMonth: true
+  });
+
+  $('.modal button.delete').click(function () {
+    $('.modal').removeClass('is-active');
+  });
+  $('.modal-card a.button.is-success').click(function () {
+    $('.modal').removeClass('is-active');
+  })
+  $('button.join-modal').click(function(){
+    $('.modal').addClass('is-active');
+  });
+  $()
+  $('.modal .modal-background').click(function(){
+    $('.modal').removeClass('is-active');
   });
  });
 

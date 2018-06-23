@@ -53,7 +53,7 @@ class EventsController < ApplicationController
 
   def join
     require_login(event_path(params[:id]))
-    @user_event = UserEvent.new(user: current_user, event: Event.find(params[:id]))
+    @user_event = UserEvent.new(user: current_user, event: Event.find(params[:id]), remark: params[:remark])
     if @user_event.save
       redirect_to joined_events_path, success: "イベントに参加しました"
     else
@@ -82,6 +82,8 @@ class EventsController < ApplicationController
     @event_detail = Event.find(params[:id])
     authorize! @event_detail
     @participated_users = @event_detail.participated_user.order(entrance_year: :desc, student_number: :asc)
+    @participated_users_remark = {}
+    @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
   end
 
   private
