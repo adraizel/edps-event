@@ -4,7 +4,7 @@ ja:
       user:
         email: メール
         password: パスワード
-        password_confirmation: パスワードの確認
+        password_confirmation: パスワードの再入力
         name: 名前
         entrance_year: 入学年度
         student_number: 学籍番号
