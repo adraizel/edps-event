@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    attributes:
+      user:
+        email: メール
+        password: パスワード
+        password_confirmation: パスワードの確認
+        name: 名前
+        entrance_year: 入学年度
+        student_number: 学籍番号
+        birthday: 誕生日
+        allergy_data: アレルギー情報
+        remark: 備考
+      event:
+        title: イベント名
+        description: イベントの説明
+        charge: 参加費
+        location: 開催場所
+        start_time: 開始時間
+        join_limit: 参加期限
+        official: 公式イベント
