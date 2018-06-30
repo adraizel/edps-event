@@ -31,7 +31,7 @@ $(document).on('turbolinks:load', function() {
     $('.navbar-menu').toggle('is-active');
   });
 
-  dateFormat = 'yy年mm月dd日';
+  dateFormat = 'yy-mm-dd';
   $('.date-picker').datepicker({
     dateFormat: dateFormat,
     changeYear: true,
