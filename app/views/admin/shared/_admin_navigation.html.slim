@@ -1,12 +1,14 @@
 nav.navbar.is-black role="navigation" aria-label="main navigation"
-  div.navbar-brand  
-    = link_to "管理者TOP", admin_root_path, class: 'navbar-item'
+  div.navbar-brand
+    a.navbar-item href="#{admin_root_path}"
+      = image_tag("logo_w.svg", width: 150)
     a.navbar-burger role="button" aria-label="menu" aria-expanded="false"
       span aria-hidden="true"
       span aria-hidden="true"
       span aria-hidden="true"
   .navbar-menu
     .navbar-start
+      = link_to "管理者TOP", admin_root_path, class: 'navbar-item'
       = link_to "イベント管理", admin_events_path, class: 'navbar-item'
       = link_to "ユーザー管理", admin_users_path, class: 'navbar-item'
     .navbar-end

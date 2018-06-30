@@ -1,12 +1,14 @@
 nav.navbar.is-white role="navigation" aria-label="main navigation"
   div.navbar-brand
-    = link_to 'TOP', root_path, class: 'navbar-item'
+    a.navbar-item href="#{root_path}"
+      = image_tag("logo_b.svg", width: 150)
     a.navbar-burger role="button" aria-label="menu" aria-expanded="false"
       span aria-hidden="true"
       span aria-hidden="true"
       span aria-hidden="true"
   .navbar-menu
     .navbar-start
+      = link_to "TOP", root_path, class: 'navbar-item'
       = link_to "イベント一覧", events_path, class: 'navbar-item'
       - if current_user
         = link_to "マイページ", user_path, class: 'navbar-item'
