@@ -5,10 +5,11 @@
 #  id          :integer          not null, primary key
 #  title       :string
 #  description :text
+#  markdown    :boolean          default(FALSE)
 #  charge      :integer
 #  location    :string
 #  start_time  :datetime
-#  join_limit  :datetime
+#  join_limit  :date
 #  owner_id    :integer
 #  official    :boolean          default(FALSE)
 #  deleted     :boolean          default(FALSE)

@@ -9,6 +9,11 @@ class EventsController < ApplicationController
 
   def show
     @event_detail = Event.find(params[:id])
+    if @event_detail.markdown?
+      convert = Qiita::Markdown::Processor.new
+      @event_description_md = convert.call(@event_detail.description)
+      @event_description_md = @event_description_md[:output].to_s
+    end
   end
 
   def new
@@ -84,10 +89,15 @@ class EventsController < ApplicationController
     @participated_users = @event_detail.participated_user.order(entrance_year: :desc, student_number: :asc)
     @participated_users_remark = {}
     @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    if @event_detail.markdown?
+      convert = Qiita::Markdown::Processor.new
+      @event_description_md = convert.call(@event_detail.description)
+      @event_description_md = @event_description_md[:output].to_s
+    end
   end
 
   private
   def event_params
-    params.require(:event).permit(:title, :description, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+    params.require(:event).permit(:title, :description, :markdown, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
   end
 end

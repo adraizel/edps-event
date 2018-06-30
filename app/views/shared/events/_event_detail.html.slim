@@ -7,7 +7,11 @@
   h4 開始時間
   = l(detail.start_time, format: :short)
   h4 イベント概要
-  = detail.description
+  - if md.present?
+    .content
+      = md.html_safe
+  - else
+    = detail.description
   h4 受付締切
-  = l(detail.join_limit, format: :short)
+  = l(detail.join_limit)
   = yield

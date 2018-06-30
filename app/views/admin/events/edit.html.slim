@@ -33,4 +33,7 @@ p
     = show_errors(@edit_event.errors.full_messages_for(:description))
     .control
       = f.text_area :description, class: 'input'
+  .field
+    = f.check_box :markdown, class: 'switch', id: 'switch'
+    = f.label "QiitaMarkdownで記述する", for: 'switch'
   = f.submit "イベントを更新する", class: "button is-info"

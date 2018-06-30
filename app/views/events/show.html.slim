@@ -2,7 +2,7 @@ h1
   | Events#show
 p
   | Find me in app/views/events/show.html.erb
-= render 'shared/events/event_detail', detail: @event_detail do
+= render 'shared/events/event_detail', detail: @event_detail, md: @event_description_md do
   .field.is-grouped
     .control
       = link_to "一覧に戻る", events_path, class: "button is-info"

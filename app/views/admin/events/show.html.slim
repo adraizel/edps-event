@@ -2,18 +2,18 @@ h1
   | Admin::Events#show
 p
   | Find me in app/views/admin/events/show.html.erb
-= render 'shared/events/event_detail', detail: @event do
+= render 'shared/events/event_detail', detail: @event, md: @event_description_md do
   div
     h4 参加者一覧
     - if @participated_users.present?
       .buttons
         a.button
           span.icon.is-small
-            i.far.fa-file-alt
+            = fa_icon 'file-o'
           span CSVダウンロード
         a.button
           span.icon.is-small
-            i.far.fa-file-pdf
+            = fa_icon 'file-pdf-o'
           span PDFダウンロード(A4)
       table.table.is-bordered.is-striped.is-hoverable.is-fullwidth
         tr

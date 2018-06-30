@@ -35,8 +35,11 @@ p.notification.is-danger
     .control
       = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'input'
   .field
-    = f.label :description
+    = f.label :description, class: 'label'
     = show_errors(@new_event.errors.full_messages_for(:description))
     .control
       = f.text_area :description, class: 'input'
+  .field
+    = f.check_box :markdown, class: 'switch', id: 'switch'
+    = f.label "QiitaMarkdownで記述する", for: 'switch'
   = f.submit "イベントを登録する", class: "button is-info"

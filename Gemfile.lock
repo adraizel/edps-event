@@ -53,6 +53,7 @@ GEM
     bullet (5.5.1)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.10.0)
+    bulma-extensions-rails (1.0.30)
     bulma-rails (0.7.1)
       sass (~> 3.2)
     byebug (10.0.2)
@@ -63,6 +64,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
+    charlock_holmes (0.7.6)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
@@ -76,6 +78,7 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     erubi (1.7.1)
+    escape_utils (1.2.1)
     execjs (2.7.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -84,8 +87,18 @@ GEM
     ffi (1.9.23)
     font-awesome-rails (4.7.0.4)
       railties (>= 3.2, < 6.0)
+    gemoji (3.0.0)
+    github-linguist (6.2.0)
+      charlock_holmes (~> 0.7.6)
+      escape_utils (~> 1.2.0)
+      mime-types (>= 1.19)
+      rugged (>= 0.25.1)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
+    greenmat (3.2.2.4)
+    html-pipeline (2.8.0)
+      activesupport (>= 2)
+      nokogiri (>= 1.4)
     i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
@@ -119,7 +132,11 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
+    mem (0.1.5)
     method_source (0.9.0)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -129,6 +146,8 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
+    nokogumbo (1.5.0)
+      nokogiri
     oauth (0.5.4)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
@@ -150,6 +169,18 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.2)
     puma (3.11.4)
+    pygments.rb (1.2.1)
+      multi_json (>= 1.0.0)
+    qiita-markdown (0.10.0)
+      activesupport
+      gemoji
+      github-linguist
+      greenmat (>= 3.2.0.2, < 4)
+      html-pipeline (~> 2.0)
+      mem
+      pygments.rb
+      rugged (>= 0.21.1b2)
+      sanitize
     rack (2.0.5)
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
@@ -187,6 +218,11 @@ GEM
       ffi (>= 0.5.0, < 2)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
+    rugged (0.27.2)
+    sanitize (4.6.5)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.4.4)
+      nokogumbo (~> 1.4)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -257,12 +293,14 @@ DEPENDENCIES
   banken
   brakeman
   bullet
+  bulma-extensions-rails
   bulma-rails (~> 0.7.1)
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   faker
   font-awesome-rails
+  github-linguist
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails
@@ -273,6 +311,7 @@ DEPENDENCIES
   pry-doc
   pry-rails
   puma (~> 3.7)
+  qiita-markdown
   rails (~> 5.1.5)
   rails_12factor
   sass-rails (~> 5.0)

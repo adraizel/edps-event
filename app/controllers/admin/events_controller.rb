@@ -14,6 +14,11 @@ class Admin::EventsController < Admin::Base
     @participated_users = @event.participated_user.order(entrance_year: :desc, student_number: :asc)
     @participated_users_remark = {}
     @event.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    if @event.markdown?
+      convert = Qiita::Markdown::Processor.new
+      @event_description_md = convert.call(@event.description)
+      @event_description_md = @event_description_md[:output].to_s
+    end
   end
 
   def new
@@ -54,6 +59,6 @@ class Admin::EventsController < Admin::Base
 
   private
   def admin_event_params
-    params.require(:event).permit(:title, :description, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+    params.require(:event).permit(:title, :description, :markdown, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
   end
 end

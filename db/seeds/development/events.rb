@@ -1,7 +1,8 @@
 Event.create([
   {
     title: Faker::Book.title,
-    description: Faker::Lorem.paragraph,
+    description: "### Markdown Test\n\n**#{Faker::Lorem.paragraph}**",
+    markdown: true,
     charge: rand(0..10000),
     location: Faker::Pokemon.location,
     start_time: Date.today.tomorrow,

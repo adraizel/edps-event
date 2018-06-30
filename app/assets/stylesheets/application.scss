@@ -15,6 +15,7 @@
  *= require font-awesome
  */
 @import "bulma";
+@import 'bulma-extensions';
 
 .event-list {
   display: flex;
@@ -26,4 +27,8 @@
   flex: 1 1 300px;
   padding: 10px;
   margin:  5px;
+}
+
+textarea {
+  min-height: 170px;
 }
