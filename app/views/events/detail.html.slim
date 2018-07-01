@@ -7,11 +7,15 @@ p
     h4 参加者一覧
     - if @participated_users.present?
       .buttons
-        a.button
+        a.button href="#{detail_user_event_path(params[:id], sjis: true, format: :csv)}"
           span.icon.is-small
             = fa_icon 'file-o'
-          span CSVダウンロード
-        a.button
+          span CSVダウンロード(SJIS)
+        a.button href="#{detail_user_event_path(params[:id], format: :csv)}"
+          span.icon.is-small
+            = fa_icon 'file-o'
+          span CSVダウンロード(UTF-8)
+        / a.button
           span.icon.is-small
             = fa_icon 'file-pdf-o'
           span PDFダウンロード(A4)
