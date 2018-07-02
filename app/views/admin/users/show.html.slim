@@ -19,6 +19,10 @@ p
 h2 備考
 p
   = @user_detail.remark.present? ? @user_detail.remark : "特になし"
-= link_to "編集", edit_admin_user_path(@user_detail), class: "btn btn-warning"
-= link_to "削除", admin_user_path(@user_detail), method: :delete, class: "btn btn-error", data: {confirm: "ユーザーを削除します。よろしいですか？"}
-= link_to "一覧に戻る", admin_users_path, class: "btn btn-primary"
+.field.is-grouped
+  .control
+    = link_to "一覧に戻る", admin_users_path, class: "button is-info"
+  .control
+    = link_to "編集", edit_admin_user_path(@user_detail), class: "button is-warning"
+  .control
+    = link_to "削除", admin_user_path(@user_detail), method: :delete, class: "button is-danger", data: {confirm: "ユーザーを削除します。よろしいですか？"}

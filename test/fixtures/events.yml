@@ -5,12 +5,13 @@
 #  id          :integer          not null, primary key
 #  title       :string
 #  description :text
+#  markdown    :boolean          default(FALSE)
 #  charge      :integer
 #  location    :string
 #  start_time  :datetime
-#  join_limit  :datetime
-#  user_id     :integer
-#  official    :boolean
+#  join_limit  :date
+#  owner_id    :integer
+#  official    :boolean          default(FALSE)
 #  deleted     :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

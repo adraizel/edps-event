@@ -1,73 +1,34 @@
-@import 'edit_variables';
-@import 'skyblue';
-@import 'alert';
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ *= require jquery-ui/datepicker
+ *= require font-awesome
+ */
+@import "bulma";
+@import 'bulma-extensions';
 
-.container {
-  background-color: #FFF;
-  min-height: 100vh;
-}
-
-div.inline_datetime{
+.event-list {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  & .field_with_errors{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-@media screen and (max-width: $tablet-portrait-breakpoint) {
-  div.inline_datetime{
-    flex-direction: column;
-  }
-}
-
-.tab-controll {
-  display: inline-flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 100%;
-  & a {
-    border-bottom: 2px solid $main-grey-color;
-    flex: 200px 1 1;
-    text-align: center;
+}
 
-    &.active {
-      border: 2px solid $main-grey-color;
-      border-bottom: none;
-    }
-  }
+.event-info {
+  flex: 1 1 300px;
+  padding: 10px;
+  margin:  5px;
 }
 
 textarea {
-  min-width: 100%;
-}
-
-.field_with_errors {
-  @extend .error
-}
-
-input[disabled], select[disabled] {
-  background-color: lighten($main-grey-color,20%);
-}
-
-.inline_checkbox{
-  display: flex;
-  padding: 0px;
-  
-  & label {
-    flex: 1 1 400px;
-  }
-}
-
-nav {
-  display: flex;
-
-  & a {
-    text-align: center;
-    flex: 1 1 200px;
-  }
+  min-height: 170px;
 }

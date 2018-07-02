@@ -9,6 +9,11 @@ class EventsController < ApplicationController
 
   def show
     @event_detail = Event.find(params[:id])
+    if @event_detail.markdown?
+      convert = Qiita::Markdown::Processor.new
+      @event_description_md = convert.call(@event_detail.description)
+      @event_description_md = @event_description_md[:output].to_s
+    end
   end
 
   def new
@@ -16,9 +21,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    @new_event = current_user.events.build(event_params)
+    @new_event = current_user.held_events.build(event_params)
     if @new_event.save
-      EventJoin.create(user: current_user, event: @new_evemt)
+      UserEvent.create(user: current_user, event: @new_evemt)
       redirect_to detail_user_event_path(@new_event)
     else
       render :new
@@ -47,14 +52,14 @@ class EventsController < ApplicationController
     if @destroy_event.destroy
       redirect_to held_user_events_path, success: "イベントを削除しました"
     else
-      render detail_user_event_path(@destroy_event), error: "削除に失敗しました"
+      render detail_user_event_path(@destroy_event), danger: "削除に失敗しました"
     end
   end
 
   def join
     require_login(event_path(params[:id]))
-    @event_join = EventJoin.new(user: current_user, event: Event.find(params[:id]))
-    if @event_join.save
+    @user_event = UserEvent.new(user: current_user, event: Event.find(params[:id]), remark: params[:remark])
+    if @user_event.save
       redirect_to joined_events_path, success: "イベントに参加しました"
     else
 
@@ -62,7 +67,7 @@ class EventsController < ApplicationController
   end
 
   def unjoin
-    @destroy_join = EventJoin.find_by(user: current_user, event: Event.find(params[:id]))
+    @destroy_join = UserEvent.find_by(user: current_user, event: Event.find(params[:id]))
     if @destroy_join.destroy
       redirect_to joined_events_path, success: "参加を取り消しました"
     else
@@ -71,21 +76,58 @@ class EventsController < ApplicationController
   end
 
   def joined
-    @joined_list = current_user.event_joins
+    @joined_list = current_user.joined_events
   end
 
   def held
-    @held_list = current_user.events
+    @held_list = current_user.held_events
   end
 
   def detail
     @event_detail = Event.find(params[:id])
     authorize! @event_detail
-    @joined_list = @event_detail.event_joins
+    @participated_users = @event_detail.participated_user.order(entrance_year: :desc, student_number: :asc)
+    @participated_users_remark = {}
+    @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    if @event_detail.markdown?
+      convert = Qiita::Markdown::Processor.new
+      @event_description_md = convert.call(@event_detail.description)
+      @event_description_md = @event_description_md[:output].to_s
+    end
+    respond_to do |format|
+      format.html
+      format.csv do
+        if params[:sjis]
+          participated_users_csv
+        else
+          participated_users_csv(Encoding::Shift_JIS)
+        end
+        return
+      end
+    end
   end
 
   private
   def event_params
-    params.require(:event).permit(:title, :description, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+    params.require(:event).permit(:title, :description, :markdown, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+  end
+  
+  def participated_users_csv(encode = Encoding::UTF_8)
+    require 'csv'
+    csv_date = CSV.generate(encoding: encode) do |csv|
+      csv_column_names = ['学籍番号', '氏名', 'アレルギー情報', '成人', '備考']
+      csv << csv_column_names
+      @participated_users.each do |l|
+        csv_column_values = [
+          l.student_number,
+          l.name,
+          l.allergy_data,
+          l.adult? ? '○' : '×',
+          @participated_users_remark[l.id]
+        ]
+        csv << csv_column_values
+      end
+    end
+    send_data(csv_date,filename: "#{@event_detail.title}_#{I18n.l(Date.today, format: '%Y-%m-%d')}.csv")
   end
 end

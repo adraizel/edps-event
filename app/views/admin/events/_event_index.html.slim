@@ -1,5 +1,14 @@
-.event-info
-  = link_to list.title, admin_event_path(list)
-  = list.location
+.card.event-info
+  h2= list.title
+  p 開催場所#{list.location}
   - if 0 < list.charge
-    = "#{list.charge}円"
+    p 参加費用 #{list.charge}円
+  - else
+    p 参加費用無し
+  .field.is-grouped
+    .control
+      = link_to '詳細', admin_event_path(list), class: 'button is-default'
+    .control
+      = link_to '編集', edit_admin_event_path(list), class: 'button is-warning'
+    .control
+      = link_to '削除', admin_event_path(list), method: :delete, class: 'button is-danger'

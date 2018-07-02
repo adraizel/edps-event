@@ -5,20 +5,22 @@
 #  id          :integer          not null, primary key
 #  title       :string
 #  description :text
+#  markdown    :boolean          default(FALSE)
 #  charge      :integer
 #  location    :string
 #  start_time  :datetime
-#  join_limit  :datetime
-#  user_id     :integer
-#  official    :boolean
+#  join_limit  :date
+#  owner_id    :integer
+#  official    :boolean          default(FALSE)
 #  deleted     :boolean          default(FALSE)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
 class Event < ApplicationRecord
-  belongs_to :user
-  has_many :event_joins, dependent: :destroy
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  has_many :user_events, dependent: :destroy
+  has_many :participated_user, through: :user_events, source: :user
 
   validates :title, presence: true
   validates :description, presence: true
@@ -29,7 +31,7 @@ class Event < ApplicationRecord
   def validate_on_create
     validate :checkDateOnCreate
   end
-  
+
   def validate_on_update
   end
 
@@ -46,6 +48,6 @@ class Event < ApplicationRecord
   end
 
   def isJoined?(user)
-    event_joins.map{|j|j.user_id}.include?(user.id) if user
+    user_events.map{|j|j.user_id}.include?(user.id) if user
   end
 end

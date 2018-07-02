@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: event_joins
+# Table name: user_events
 #
 #  id         :integer          not null, primary key
 #  user       :integer
@@ -12,7 +12,7 @@
 
 require 'test_helper'
 
-class EventJoinTest < ActiveSupport::TestCase
+class UserEventTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

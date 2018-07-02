@@ -7,6 +7,7 @@
 #  crypted_password :string
 #  salt             :string
 #  name             :string           not null
+#  entrance_year    :integer          not null
 #  student_number   :string           not null
 #  birthday         :date             not null
 #  allergy_data     :string           default("")
@@ -25,9 +26,11 @@ class User < ApplicationRecord
 
 
   # 関連
-  has_many :event_joins, dependent: :destroy
-  has_many :events, dependent: :destroy
+  has_many :user_events, dependent: :destroy
+  has_many :held_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
+  has_many :joined_events, through: :user_events, source: :event
 
+  before_validation :set_entrance_year
 
   # バリデーション
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
@@ -39,35 +42,49 @@ class User < ApplicationRecord
 
 
   # メソッド
-  def age
-    date_format = "%Y%m%d"
-    (Date.today.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
-  end
-
-  def isAdult?
-    20 <= age
-  end
-
-  def ageByDate(date)
+  def age(date = Date.today)
     date_format = "%Y%m%d"
     (date.strftime(date_format).to_i - birthday.strftime(date_format).to_i) / 10000
   end
 
-  def isAdultByDate?(date)
-    20 <= ageByDate(date)
+  def adult?(date = Date.today)
+    20 <= age(date)
   end
 
-  def grade
-    spl = student_number.split('-')
-    spl[0].gsub!(/[A-Z]{2}/,'')
-    spl[1] = spl[1].slice!(0)
-    if spl[1].match('1')
-      y = ("20" + spl[0]).to_i
+  def grade(text = false)
+    if Date.today.month <= 3
+      gr = Date.today.year - entrance_year
     else
-      y = 1988 + spl[0].to_i
+      gr = Date.today.year - entrance_year + 1
     end
-    Date.today.year - y + 1
+    if text
+      if gr > 4
+        "OB/OG"
+      elsif gr < 1
+        "入学予定"
+      else
+        "#{gr}年"
+      end
+    else
+      gr
+    end
   end
 
   # プライベートメソッド
+  private
+  def set_entrance_year
+    begin
+      spl = student_number.split('-')
+      spl[0].gsub!(/[A-Z]{2}/,'')
+      spl[1] = spl[1].slice!(0)
+      if spl[1].match('1')
+        y = ("20" + spl[0]).to_i
+      else
+        y = 1988 + spl[0].to_i
+      end
+      self.entrance_year = y
+    rescue
+      nil
+    end
+  end
 end

@@ -1,12 +1,27 @@
-nav.admin
-  / | #{"ナナナナナビゲーション" if current_user}
-  = link_to "TOP", root_path
-  = link_to "イベント一覧", events_path
-  - if current_user
-    = link_to "マイページ", user_path
-    = link_to "ログアウト", logout_path, method: :post
-    - if current_user.executive?
-      = link_to "管理者TOP", admin_root_path
-  - else
-    = link_to "ログイン", login_path
-    = link_to "新規登録", new_user_path
+nav.navbar.is-white role="navigation" aria-label="main navigation"
+  div.navbar-brand
+    a.navbar-item href="#{root_path}"
+      = image_tag("logo_b.svg", width: 150)
+    a.navbar-burger role="button" aria-label="menu" aria-expanded="false"
+      span aria-hidden="true"
+      span aria-hidden="true"
+      span aria-hidden="true"
+  .navbar-menu
+    .navbar-start
+      = link_to "TOP", root_path, class: 'navbar-item'
+      = link_to "イベント一覧", events_path, class: 'navbar-item'
+      - if current_user
+        = link_to "マイページ", user_path, class: 'navbar-item'
+    .navbar-end
+      - if current_user
+        .navbar-item
+          = link_to "ログアウト", logout_path, class: 'button is-danger is-link', method: :post
+        - if current_user.executive?
+          = link_to "管理者TOP", admin_root_path, class: 'navbar-item'
+      - else
+        .navbar-item
+          .field.is-grouped
+            .control
+              = link_to "ログイン", login_path, class: 'button is-info is-link'
+            .control
+              = link_to "新規登録", new_user_path, class: 'button is-success is-link'

@@ -2,15 +2,22 @@ h1
   | Admin::Users#index
 p
   | Find me in app/views/admin/users/index.html.erb
-= link_to "ユーザー新規登録", new_admin_user_path, class: "btn btn-success"
-/ = form_with url: admin_users_path, method: :get, local: true do |f|
-  = f.select :grade, [1, 2, 3, 4, "OB"],{include_blank: true}, class: "form-control"
-  = f.submit "絞り込む", class: "btn btn-primary"
-
-table.table.table-striped.table-hover
-  tr
-    th 学年
-    th 学籍番号
-    th 名前
-    th 成人
-  = render :partial => 'user_index', :collection => @user_list, :as => 'list'
+= render partial: 'user_nav'
+.buttons.has-addons.is-centered
+  = link_to '全学年', admin_users_path, class: 'button'
+  = link_to '一年次', admin_users_path(grade: 0), class: 'button'
+  = link_to '二年次', admin_users_path(grade: 1), class: 'button'
+  = link_to '三年次', admin_users_path(grade: 2), class: 'button'
+  = link_to '四年次', admin_users_path(grade: 3), class: 'button'
+  = link_to '卒業生', admin_users_path(grade: 4), class: 'button'
+- if @user_list.empty?
+  p 該当するユーザーは登録されていません。
+- else
+  table.table.is-bordered.is-striped.is-hoverable.is-fullwidth
+    tr
+      th 学年
+      th 学籍番号
+      th 名前
+      th 成人
+    = render partial: 'user_index', collection: @user_list, as: 'list'
+  = paginate(@user_list)

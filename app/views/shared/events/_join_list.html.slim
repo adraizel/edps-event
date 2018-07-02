@@ -1,0 +1,13 @@
+tr
+  td
+    = join_list.grade(true)
+  td
+    = join_list.student_number
+  td
+    = join_list.name
+  td
+    = join_list.adult? ? "○" : "×"
+  td
+    = join_list.allergy_data
+  td
+    = remarks[join_list.id]

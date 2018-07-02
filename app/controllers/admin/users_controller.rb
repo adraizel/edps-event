@@ -1,6 +1,15 @@
 class Admin::UsersController < Admin::Base
   def index
-    @user_list = User.all()
+    pibot = Date.today.month <= 3 ? Date.today.year - 1 : Date.today.year
+    d = [0, -1, -2, -3, -4].map!{|r| r + pibot}
+
+    if params[:grade].present? && 0 <= params[:grade].to_i && params[:grade].to_i <= 3
+      @user_list = User.where(entrance_year: d[params[:grade].to_i]).page(params[:page]).order(student_number: :asc)
+    elsif params[:grade].present? && params[:grade].to_i == 4
+      @user_list = User.where('entrance_year <= ?', d[params[:grade].to_i]).page(params[:page]).order(student_number: :asc)
+    else
+      @user_list = User.all.page(params[:page]).order(entrance_year: :desc, student_number: :asc)
+    end
   end
 
   def show
@@ -37,9 +46,9 @@ class Admin::UsersController < Admin::Base
   def destroy
     @destroy_user = User.find(params[:id])
     if @destroy_user.executive? == false && @destroy_user.destroy
-      redirect_to :admin_root, notice: "会員情報を削除しました"
+      redirect_to :admin_root, info: "会員情報を削除しました"
     else
-      flash.now[:error] = "幹部扱いのユーザーは削除できません"
+      flash.now[:danger] = "幹部扱いのユーザーは削除できません"
       redirect_to admin_user_path(@destroy_user)
     end
   end

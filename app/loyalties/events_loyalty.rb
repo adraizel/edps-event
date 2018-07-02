@@ -1,6 +1,6 @@
 class EventsLoyalty < ApplicationLoyalty
   def edit?
-    record.user == user
+    record.owner == user
   end
 
   def update?

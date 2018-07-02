@@ -2,16 +2,13 @@ doctype html
 html
   head
     title
-      | EdpsEvent - Admin
+      | #Edevent
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     meta name="viewport" content="width=device-width, initial-scale=1"
   body
-    .container.main-pane
-      = render "admin/shared/admin_navigation"
-      - flash.each do |k,v|
-        = content_tag :div, class: "alert alert-#{k}", data: {'no-turbolink' => true} do
-          .icon-close
-          = v
+    = render "admin/shared/admin_navigation"
+    .container
+      = render "shared/alert"
       = yield

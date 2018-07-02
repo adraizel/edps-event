@@ -1,0 +1,6 @@
+.tabs.is-centered
+  ul
+    li class="#{request.path_info == admin_events_path ? "is-active" : ''}"
+      = link_to "イベント一覧", admin_events_path
+    li class="#{request.path_info == new_admin_event_path ? "is-active" : ''}"
+      = link_to "イベント新規登録", new_admin_event_path

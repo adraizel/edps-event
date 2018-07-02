@@ -2,8 +2,15 @@ h1
   | Admin::Events#index
 p
   | Find me in app/views/admin/events/index.html.erb
+= render partial: 'event_nav'
+.buttons.has-addons.is-centered
+  = link_to '全てのイベント', admin_events_path, class: 'button'
+  = link_to '公式イベント', admin_events_path(official: true), class: 'button'
+  = link_to 'メンバー開催イベント', admin_events_path(official: false), class: 'button'
 - if @event_list.empty?
   p
-    |  ここには何もありませんよ？ 
+    |  イベントの登録はありません。
 - else
-  = render :partial => 'event_index', :collection => @event_list, :as => 'list'
+  .event-list
+    = render partial: 'event_index', collection: @event_list, as: 'list'
+  = paginate(@event_list)
