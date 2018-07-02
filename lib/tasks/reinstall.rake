@@ -2,7 +2,7 @@ namespace :db do
 
   desc 'DB reinstall'
 
-  task reinstall: :environment do
+  task reinstall: ENV['RAILS_ENV'] do
     Rake::Task['tmp:clear'].invoke
     Rake::Task['assets:clean'].invoke
     Rake::Task['assets:clobber'].invoke

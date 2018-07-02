@@ -98,9 +98,9 @@ class EventsController < ApplicationController
       format.html
       format.csv do
         if params[:sjis]
-          participated_users_csv
-        else
           participated_users_csv(Encoding::Shift_JIS)
+        else
+          participated_users_csv
         end
         return
       end
