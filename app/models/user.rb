@@ -83,8 +83,8 @@ class User < ApplicationRecord
         y = 1988 + spl[0].to_i
       end
       self.entrance_year = y
-    rescue
-      nil
+    rescue Exception => e
+      self.entrance_year = 1989
     end
   end
 end
