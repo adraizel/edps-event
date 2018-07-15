@@ -54,6 +54,7 @@ group :development, :test do
   gem 'pry-doc'
 # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
+  gem 'mailcatcher'
 end
 
 group :development do
