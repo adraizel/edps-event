@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180000000003) do
+ActiveRecord::Schema.define(version: 20180000000004) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180000000003) do
     t.boolean "markdown", default: false
     t.integer "charge"
     t.string "location"
-    t.datetime "start_time"
+    t.date "start_time"
     t.date "join_limit"
     t.integer "owner_id"
     t.boolean "official", default: false
@@ -50,6 +50,10 @@ ActiveRecord::Schema.define(version: 20180000000003) do
     t.boolean "mailer", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "activation_state"
+    t.string "activation_token"
+    t.datetime "activation_token_expires_at"
+    t.index ["activation_token"], name: "index_users_on_activation_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["student_number"], name: "index_users_on_student_number", unique: true
   end

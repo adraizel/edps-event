@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get :held, on: :collection
       get :detail, on: :member
     end
+    get :activate, on: :member
   end
 
   resources :events, only: [:index, :show] do

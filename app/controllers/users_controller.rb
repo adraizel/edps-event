@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action ->{
     require_login(user_path)
-  }, except: [:new, :create]
+  }, except: [:new, :create, :activate]
 
   def show
     @user = User.find(current_user.id)
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
   def create
     @new_user = User.new(user_param)
     if @new_user.save
-      redirect_to :root, success: "登録が完了しました"
+      redirect_to :root, success: "アカウント認証のメールを送信しました。メールボックスをご確認ください。"
     else
       render :new
     end
@@ -42,6 +42,15 @@ class UsersController < ApplicationController
       redirect_to :root, info: "会員情報を削除しました"
     else
       
+    end
+  end
+
+  def activate
+    if (@user = User.load_from_activation_token(params[:token]))
+      @user.activate!
+      redirect_to(login_path, info: 'ユーザー認証が完了しました')
+    else
+      not_authenticated
     end
   end
 

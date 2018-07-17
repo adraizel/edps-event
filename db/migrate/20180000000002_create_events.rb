@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
       t.boolean  :markdown,     default: false
       t.integer  :charge
       t.string   :location
-      t.datetime :start_time
+      t.date     :start_time
       t.date     :join_limit
       t.integer  :owner_id
       t.boolean  :official,     default: false
