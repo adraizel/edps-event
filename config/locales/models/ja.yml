@@ -16,6 +16,6 @@ ja:
         description: イベントの説明
         charge: 参加費
         location: 開催場所
-        start_time: 開始時間
+        start_time: 開催日
         join_limit: 参加期限
         official: 公式イベント
