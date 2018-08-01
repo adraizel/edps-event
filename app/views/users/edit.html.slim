@@ -1,7 +1,3 @@
-h1
-  | Users#edit
-p
-  | Find me in app/views/users/edit.html.erb
 = render :partial => 'user_nav'
 = form_with model: @edit_user, url: user_path, method: :patch, local: true do |f|
   .field

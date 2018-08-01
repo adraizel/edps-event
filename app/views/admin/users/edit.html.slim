@@ -1,7 +1,3 @@
-h1
-  | Admin::Users#edit
-p
-  | Find me in app/views/admin/users/edit.html.erb
 = form_with model: @edit_user, url: admin_user_path(@edit_user), method: :patch, local: true do |f|
   .field
     = f.label :email, class: 'label'
@@ -41,13 +37,11 @@ p
       = f.text_field :remark, class: 'input'
   .field
     = f.label "上位権限", class: 'label'
-    .control
-      label
-        = f.check_box :executive
-        span 幹部扱い(メール送信の許可を含む)
-    .control
-      label
-        = f.check_box :mailer
-        span メール送信の許可
+    .field
+      = f.check_box :executive, class: 'switch', id: 'ex_sw'
+      = f.label "幹部扱い(メール送信の許可を含む)", for: 'ex_sw'
+    .field
+      = f.check_box :mailer, class: 'switch', id: 'ml_sw'
+      = f.label "メール送信の許可", for: 'ml_sw'
   = f.submit class: 'button is-info'
   = link_to "詳細に戻る", admin_user_path(@edit_user), class: "button is-info"
