@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action ->{
     require_login(user_path)
-  }, except: [:index, :show, :join]
+  }, except: [:index, :show]
 
   def index
     @event_list = Event.all()
@@ -57,21 +57,36 @@ class EventsController < ApplicationController
   end
 
   def join
-    require_login(event_path(params[:id]))
-    @user_event = UserEvent.new(user: current_user, event: Event.find(params[:id]), remark: params[:remark])
-    if @user_event.save
+    begin
+      require_login(event_path(params[:id]))
+      join_event = Event.find(params[:id])
+      authorize! join_event
+    rescue Banken::NotAuthorizedError => e
+      redirect_to event_path, danger: "このイベントの参加受付は終了しています"
+      return
+    end
+    user_event = UserEvent.new(user: current_user, event: join_event, remark: params[:remark])
+    if user_event.save
       redirect_to joined_events_path, success: "イベントに参加しました"
     else
-
+      redirect_to joined_events_path, warning: "すでに参加しているイベントです"
     end
   end
 
   def unjoin
-    @destroy_join = UserEvent.find_by(user: current_user, event: Event.find(params[:id]))
+    begin
+      require_login(event_path(params[:id]))
+      unjoin_event = Event.find(params[:id])
+      authorize! unjoin_event
+    rescue Banken::NotAuthorizedError => e
+      redirect_to event_path, danger: "このイベントの参加取り消し受付は終了しています"
+      return
+    end
+    @destroy_join = UserEvent.find_by(user: current_user, event: unjoin_event)
     if @destroy_join.destroy
       redirect_to joined_events_path, success: "参加を取り消しました"
     else
-
+      redirect_to joined_events_path, warning: "参加の取り消しに失敗しました"
     end
   end
 
@@ -86,7 +101,7 @@ class EventsController < ApplicationController
   def detail
     @event_detail = Event.find(params[:id])
     authorize! @event_detail
-    @participated_users = @event_detail.participated_user.order(entrance_year: :desc, student_number: :asc)
+    @participated_users = @event_detail.participated_user.order(grade: :desc, student_number: :asc)
     @participated_users_remark = {}
     @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
     if @event_detail.markdown?

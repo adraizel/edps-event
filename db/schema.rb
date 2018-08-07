@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(version: 20180000000004) do
     t.string "crypted_password"
     t.string "salt"
     t.string "name", null: false
-    t.integer "entrance_year", null: false
+    t.integer "grade", default: 1
     t.string "student_number", null: false
-    t.date "birthday", null: false
+    t.date "birthday", default: "2000-01-01", null: false
     t.string "allergy_data", default: ""
     t.string "remark", default: ""
     t.boolean "executive", default: false

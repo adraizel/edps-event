@@ -14,4 +14,12 @@ class EventsLoyalty < ApplicationLoyalty
   def detail?
     edit?
   end
+
+  def join?
+    record.join_limit > Date.today
+  end
+
+  def unjoin?
+    join?
+  end
 end

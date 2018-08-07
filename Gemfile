@@ -42,6 +42,7 @@ gem 'kaminari'
 gem "font-awesome-rails"
 gem 'qiita-markdown'
 gem 'github-linguist'
+gem 'enum_help'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

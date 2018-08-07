@@ -78,6 +78,8 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     daemons (1.2.6)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.7.1)
     escape_utils (1.2.1)
     eventmachine (1.2.7)
@@ -331,6 +333,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
+  enum_help
   faker
   font-awesome-rails
   github-linguist

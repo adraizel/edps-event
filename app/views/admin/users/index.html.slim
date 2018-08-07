@@ -1,11 +1,11 @@
 = render partial: 'user_nav'
 .buttons.has-addons.is-centered
   = link_to '全学年', admin_users_path, class: 'button'
-  = link_to '一年次', admin_users_path(grade: 0), class: 'button'
-  = link_to '二年次', admin_users_path(grade: 1), class: 'button'
-  = link_to '三年次', admin_users_path(grade: 2), class: 'button'
-  = link_to '四年次', admin_users_path(grade: 3), class: 'button'
-  = link_to '卒業生', admin_users_path(grade: 4), class: 'button'
+  = link_to '一年次', admin_users_path(grade: 1), class: 'button'
+  = link_to '二年次', admin_users_path(grade: 2), class: 'button'
+  = link_to '三年次', admin_users_path(grade: 3), class: 'button'
+  = link_to '四年次', admin_users_path(grade: 4), class: 'button'
+  = link_to '卒業生', admin_users_path(grade: 5), class: 'button'
 - if @user_list.empty?
   p 該当するユーザーは登録されていません。
 - else

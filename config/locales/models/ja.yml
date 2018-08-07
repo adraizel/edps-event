@@ -8,6 +8,7 @@ ja:
         name: 名前
         entrance_year: 入学年度
         student_number: 学籍番号
+        grade: 学年
         birthday: 誕生日
         allergy_data: アレルギー情報
         remark: 備考
@@ -19,3 +20,12 @@ ja:
         start_time: 開催日
         join_limit: 参加期限
         official: 公式イベント
+  enums:
+    user:
+      grade:
+        pre-entry: 入学前
+        freshman: 一年
+        sophomore: 二年
+        junior: 三年
+        senior: 四年
+        obog: 卒業生

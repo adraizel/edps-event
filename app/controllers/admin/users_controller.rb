@@ -1,14 +1,12 @@
 class Admin::UsersController < Admin::Base
   def index
     pibot = Date.today.month <= 3 ? Date.today.year - 1 : Date.today.year
-    d = [0, -1, -2, -3, -4].map!{|r| r + pibot}
+    # d = [0, -1, -2, -3, -4].map!{|r| r + pibot}
 
-    if params[:grade].present? && 0 <= params[:grade].to_i && params[:grade].to_i <= 3
-      @user_list = User.where(entrance_year: d[params[:grade].to_i]).page(params[:page]).order(student_number: :asc)
-    elsif params[:grade].present? && params[:grade].to_i == 4
-      @user_list = User.where('entrance_year <= ?', d[params[:grade].to_i]).page(params[:page]).order(student_number: :asc)
+    if params[:grade].present? && 1 <= params[:grade].to_i && params[:grade].to_i <= 5
+      @user_list = User.where(grade: params[:grade].to_i).page(params[:page]).order(student_number: :asc)
     else
-      @user_list = User.all.page(params[:page]).order(entrance_year: :desc, student_number: :asc)
+      @user_list = User.all.page(params[:page]).order(grade: :desc, student_number: :asc)
     end
   end
 
@@ -55,6 +53,6 @@ class Admin::UsersController < Admin::Base
 
   private
   def user_param
-    params.require(:user).permit(:email, :password, :password_confirmation, :name, :student_number, :birthday, :allergy_data, :remark, :executive, :mailer)
+    params.require(:user).permit(:email, :password, :password_confirmation, :name, :student_number, :grade, :birthday, :allergy_data, :remark, :executive, :mailer)
   end
 end

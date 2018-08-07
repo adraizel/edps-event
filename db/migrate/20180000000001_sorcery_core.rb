@@ -1,13 +1,13 @@
 class SorceryCore < ActiveRecord::Migration[5.1]
   def self.up
     create_table :users do |t|
-      t.string  :email,                             null: false
+      t.string  :email,                                          null: false
       t.string  :crypted_password
       t.string  :salt
-      t.string  :name,                              null: false
-      t.integer :entrance_year,                     null: false
-      t.string  :student_number,                    null: false
-      t.date    :birthday,                          null: false
+      t.string  :name,                                           null: false
+      t.integer :grade,             default: 1
+      t.string  :student_number,                                 null: false
+      t.date    :birthday,          default: Date.new(2000,1,1), null: false
       t.string  :allergy_data,      default: ""
       t.string  :remark,            default: ""
       t.boolean :executive,         default: false

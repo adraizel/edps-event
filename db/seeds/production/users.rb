@@ -1,8 +1,9 @@
 User.create([
   {
-    email: 'admin@edps.com',
+    email: ENV['FIRST_ADMIN_EMAIL'].present? ENV['FIRST_ADMIN_EMAIL'] : 'admin@edps.com',
     name: 'administrator',
-    student_number: 'NE27-9999D',
+    student_number: 'NE27-0999D',
+    grade: 4,
     birthday: Date.new(1997, 1, 1),
     allergy_data: '',
     remark: 'First User',
