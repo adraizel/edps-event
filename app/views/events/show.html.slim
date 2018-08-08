@@ -5,9 +5,11 @@
     .control
       - if @event_detail.isJoined?(current_user)
         = link_to '参加を取り消す', unjoin_event_path(@event_detail),  method: :post, class: 'button is-danger', data: {confirm: '参加を取り消しますよろしいですか？'}
-      - else
+      - elsif current_user
         / = link_to "参加する", join_event_path(@event_detail), method: :post, class: 'button is-success'
         button.join-modal.button.is-success 参加する
+      - else
+        = link_to 'ログインして参加する', join_event_path(@event_detail), class: 'button is-primary'
 
 .modal
   .modal-background

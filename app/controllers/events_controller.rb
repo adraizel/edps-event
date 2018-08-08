@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action ->{
     require_login(user_path)
-  }, except: [:index, :show]
+  }, except: [:index, :show, :join]
 
   def index
     @event_list = Event.all()
@@ -58,18 +58,20 @@ class EventsController < ApplicationController
 
   def join
     begin
-      require_login(event_path(params[:id]))
+      raise RequireUserLogin unless current_user
       join_event = Event.find(params[:id])
       authorize! join_event
+      user_event = UserEvent.new(user: current_user, event: join_event, remark: params[:remark])
+      if user_event.save
+        redirect_to joined_events_path, success: "イベントに参加しました"
+      else
+        redirect_to joined_events_path, warning: "すでに参加しているイベントです"
+      end
     rescue Banken::NotAuthorizedError => e
       redirect_to event_path, danger: "このイベントの参加受付は終了しています"
       return
-    end
-    user_event = UserEvent.new(user: current_user, event: join_event, remark: params[:remark])
-    if user_event.save
-      redirect_to joined_events_path, success: "イベントに参加しました"
-    else
-      redirect_to joined_events_path, warning: "すでに参加しているイベントです"
+    rescue RequireUserLogin => e
+      require_login(event_path(params[:id]))
     end
   end
 
