@@ -19,7 +19,7 @@ p.notification.is-danger
     = f.label :start_time, class: 'label'
     = show_errors(@new_event.errors.full_messages_for(:start_time))
     .control
-      = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'input'
+      = f.text_field :start_time, class: 'date-picker input'
   .field
     = f.label :charge, class: 'label'
     = show_errors(@new_event.errors.full_messages_for(:charge))
@@ -29,7 +29,7 @@ p.notification.is-danger
     = f.label :join_limit, class: 'label'
     = show_errors(@new_event.errors.full_messages_for(:join_limit))
     .control
-      = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'input'
+      = f.text_field :join_limit, class: 'date-picker input'
   .field
     = f.label :description, class: 'label'
     = show_errors(@new_event.errors.full_messages_for(:description))
