@@ -35,16 +35,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @destroy_user = User.find(current_user.id)
-    if @destroy_user.destroy
-      logout
-      redirect_to :root, info: "会員情報を削除しました"
-    else
-      
-    end
-  end
-
   def activate
     if (@user = User.load_from_activation_token(params[:token]))
       @user.activate!

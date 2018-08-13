@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post :login, :to => "session#create"
   post :logout, :to => "session#destroy"
 
-  resource :user do
+  resource :user, except: [:destroy] do
     resources :events, except: [:index, :show] do
       get :held, on: :collection
       get :detail, on: :member
