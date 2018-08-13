@@ -6,7 +6,7 @@ ja:
         password: パスワード
         password_confirmation: パスワードの再入力
         name: 名前
-        entrance_year: 入学年度
+        entrance_year: 入学年
         student_number: 学籍番号
         grade: 学年
         birthday: 誕生日
@@ -14,7 +14,7 @@ ja:
         remark: 備考
       event:
         title: イベント名
-        description: イベントの説明
+        description: イベントの詳細
         charge: 参加費
         location: 開催場所
         start_time: 開催日
