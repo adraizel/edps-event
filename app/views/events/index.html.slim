@@ -1,5 +1,18 @@
-- if @event_list.empty?
-  p 該当するイベントはありません
-- else
-  .event-list
-    = render :partial => 'shared/events/event_index', :collection => @event_list, :as => 'list'
+section.hero.is-primary
+  .hero-body
+    .container
+      h1.title イベント一覧
+.container
+  - if @event_list.empty?
+    p 該当するイベントはありません
+  - else
+    .tabs.is-centered
+      ul
+        li
+          a 全てのイベント
+        li
+          a 幹部開催のイベント
+        li
+          a 部員開催のイベント
+    .event-list
+      = render :partial => 'shared/events/event_index', :collection => @event_list, :as => 'list'

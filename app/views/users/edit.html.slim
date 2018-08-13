@@ -1,44 +1,45 @@
-= render :partial => 'user_nav'
-= form_with model: @edit_user, url: user_path, method: :patch, local: true do |f|
-  .field
-    = f.label :email, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:email))
-    .control
-      = f.email_field :email, class: 'input'
-  .field
-    = f.label :password, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:password))
-    .control
-      = f.password_field :password, class: 'input'
-  .field
-    = f.label :password_confirmation, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:password_confirmation))
-    .contol
-      = f.password_field :password_confirmation, class: 'input'
-  .field
-    = f.label :name, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:name))
-    .control
-      = f.text_field :name, class: 'input'
-  .field
-    = f.label :student_number, class: 'label'
-    .control
-    = f.text_field :student_number, class: 'input', disabled: true
-  .field
-    = f.label :grade, class: 'label'
-    .control
-      span.select
-        = f.select :grade, User.grades_i18n.invert, {},disabled: true
-  .field
-    = f.label :birthday, class: 'label'
-    .control
-      = f.text_field :birthday, class: 'date-picker input', disabled: true
-  .field
-    = f.label :allergy_data, class: 'label'
-    .control
-      = f.text_field :allergy_data, class: 'input'
-  .field
-    = f.label :remark, class: 'label'
-    .contol
-      = f.text_field :remark, class: 'input'
-  = f.submit class: 'button is-info'
+.container
+  = render :partial => 'user_nav'
+  = form_with model: @edit_user, url: user_path, method: :patch, local: true do |f|
+    .field
+      = f.label :email, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:email))
+      .control
+        = f.email_field :email, class: 'input'
+    .field
+      = f.label :password, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:password))
+      .control
+        = f.password_field :password, class: 'input'
+    .field
+      = f.label :password_confirmation, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:password_confirmation))
+      .contol
+        = f.password_field :password_confirmation, class: 'input'
+    .field
+      = f.label :name, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:name))
+      .control
+        = f.text_field :name, class: 'input'
+    .field
+      = f.label :student_number, class: 'label'
+      .control
+      = f.text_field :student_number, class: 'input', disabled: true
+    .field
+      = f.label :grade, class: 'label'
+      .control
+        span.select
+          = f.select :grade, User.grades_i18n.invert, {},disabled: true
+    .field
+      = f.label :birthday, class: 'label'
+      .control
+        = f.text_field :birthday, class: 'date-picker input', disabled: true
+    .field
+      = f.label :allergy_data, class: 'label'
+      .control
+        = f.text_field :allergy_data, class: 'input'
+    .field
+      = f.label :remark, class: 'label'
+      .contol
+        = f.text_field :remark, class: 'input'
+    = f.submit class: 'button is-info'

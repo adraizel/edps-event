@@ -1,35 +1,36 @@
-= render 'shared/events/event_detail', detail: @event, md: @event_description_md do
-  div
-    h4 参加者一覧
-    - if @participated_users.present?
-      .buttons
-        a.button href="#{admin_event_path(params[:id], sjis: true, format: :csv)}"
-          span.icon.is-small
-            = fa_icon 'file-o'
-          span CSVダウンロード(SJIS)
-        a.button href="#{admin_event_path(params[:id], format: :csv)}"
-          span.icon.is-small
-            = fa_icon 'file-o'
-          span CSVダウンロード(UTF-8)
-        / a.button
-          span.icon.is-small
-            = fa_icon 'file-pdf-o'
-          span PDFダウンロード(A4)
-      table.table.is-bordered.is-striped.is-hoverable.is-fullwidth
-        tr
-          th 学年
-          th 学籍番号
-          th 名前
-          th 成人
-          th アレルギー情報
-          th 備考
-        = render partial: 'shared/events/join_list', collection: @participated_users, locals: {remarks: @participated_users_remark} 
-    - else
-      p 参加者はまだいません
-    .field.is-grouped
-      .control
-        = link_to "一覧に戻る", admin_events_path, class: 'button is-info'
-      .control
-        = link_to "編集", edit_admin_event_path(@event), class: 'button is-warning'
-      .control
-        = link_to "削除", admin_event_path(@event), method: :delete, class: 'button is-danger'
+.container
+  = render 'shared/events/event_detail', detail: @event, md: @event_description_md do
+    div
+      h4 参加者一覧
+      - if @participated_users.present?
+        .buttons
+          a.button href="#{admin_event_path(params[:id], sjis: true, format: :csv)}"
+            span.icon.is-small
+              = fa_icon 'file-o'
+            span CSVダウンロード(SJIS)
+          a.button href="#{admin_event_path(params[:id], format: :csv)}"
+            span.icon.is-small
+              = fa_icon 'file-o'
+            span CSVダウンロード(UTF-8)
+          / a.button
+            span.icon.is-small
+              = fa_icon 'file-pdf-o'
+            span PDFダウンロード(A4)
+        table.table.is-bordered.is-striped.is-hoverable.is-fullwidth
+          tr
+            th 学年
+            th 学籍番号
+            th 名前
+            th 成人
+            th アレルギー情報
+            th 備考
+          = render partial: 'shared/events/join_list', collection: @participated_users, locals: {remarks: @participated_users_remark} 
+      - else
+        p 参加者はまだいません
+      .field.is-grouped
+        .control
+          = link_to "一覧に戻る", admin_events_path, class: 'button is-info'
+        .control
+          = link_to "編集", edit_admin_event_path(@event), class: 'button is-warning'
+        .control
+          = link_to "削除", admin_event_path(@event), method: :delete, class: 'button is-danger'

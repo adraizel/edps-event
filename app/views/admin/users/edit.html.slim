@@ -1,52 +1,53 @@
-= form_with model: @edit_user, url: admin_user_path(@edit_user), method: :patch, local: true do |f|
-  .field
-    = f.label :email, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:email))
-    .control
-      = f.email_field :email, class: 'input'
-  .field
-    = f.label :password, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:password))
-    .control
-      = f.password_field :password, class: 'input'
-  .field
-    = f.label :password_confirmation, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:password_confirmation))
-    .control
-      = f.password_field :password_confirmation, class: 'input'
-  .field
-    = f.label :name, class: 'label'
-    = show_errors(@edit_user.errors.full_messages_for(:name))
-    .control
-      = f.text_field :name, class: 'input'
-  .field
-    = f.label :student_number, class: 'label'
-    .control
-      = f.text_field :student_number, class: 'input'
-  .field
-    = f.label :grade, class: 'label'
-    .control
-      span.select
-        = f.select :grade, User.grades_i18n.invert
-  .field
-    = f.label :birthday, class: 'label'
-    .control
-      = f.text_field :birthday, class: 'date-picker input'
-  .field
-    = f.label :allergy_data, class: 'label'
-    .control
-      = f.text_field :allergy_data, class: 'input'
-  .field
-    = f.label :remark, class: 'label'
-    .control
-      = f.text_field :remark, class: 'input'
-  .field
-    = f.label "上位権限", class: 'label'
+.container
+  = form_with model: @edit_user, url: admin_user_path(@edit_user), method: :patch, local: true do |f|
     .field
-      = f.check_box :executive, class: 'switch', id: 'ex_sw'
-      = f.label "幹部扱い(メール送信の許可を含む)", for: 'ex_sw'
+      = f.label :email, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:email))
+      .control
+        = f.email_field :email, class: 'input'
     .field
-      = f.check_box :mailer, class: 'switch', id: 'ml_sw'
-      = f.label "メール送信の許可", for: 'ml_sw'
-  = f.submit class: 'button is-info'
-  = link_to "詳細に戻る", admin_user_path(@edit_user), class: "button is-info"
+      = f.label :password, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:password))
+      .control
+        = f.password_field :password, class: 'input'
+    .field
+      = f.label :password_confirmation, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:password_confirmation))
+      .control
+        = f.password_field :password_confirmation, class: 'input'
+    .field
+      = f.label :name, class: 'label'
+      = show_errors(@edit_user.errors.full_messages_for(:name))
+      .control
+        = f.text_field :name, class: 'input'
+    .field
+      = f.label :student_number, class: 'label'
+      .control
+        = f.text_field :student_number, class: 'input'
+    .field
+      = f.label :grade, class: 'label'
+      .control
+        span.select
+          = f.select :grade, User.grades_i18n.invert
+    .field
+      = f.label :birthday, class: 'label'
+      .control
+        = f.text_field :birthday, class: 'date-picker input'
+    .field
+      = f.label :allergy_data, class: 'label'
+      .control
+        = f.text_field :allergy_data, class: 'input'
+    .field
+      = f.label :remark, class: 'label'
+      .control
+        = f.text_field :remark, class: 'input'
+    .field
+      = f.label "上位権限", class: 'label'
+      .field
+        = f.check_box :executive, class: 'switch', id: 'ex_sw'
+        = f.label "幹部扱い(メール送信の許可を含む)", for: 'ex_sw'
+      .field
+        = f.check_box :mailer, class: 'switch', id: 'ml_sw'
+        = f.label "メール送信の許可", for: 'ml_sw'
+    = f.submit class: 'button is-info'
+    = link_to "詳細に戻る", admin_user_path(@edit_user), class: "button is-info"

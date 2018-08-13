@@ -1,12 +1,13 @@
-= render partial: 'event_nav'
-.buttons.has-addons.is-centered
-  = link_to '全てのイベント', admin_events_path, class: 'button'
-  = link_to '公式イベント', admin_events_path(official: true), class: 'button'
-  = link_to 'メンバー開催イベント', admin_events_path(official: false), class: 'button'
-- if @event_list.empty?
-  p
-    |  イベントの登録はありません。
-- else
-  .event-list
-    = render partial: 'event_index', collection: @event_list, as: 'list'
-  = paginate(@event_list)
+.container
+  = render partial: 'event_nav'
+  .buttons.has-addons.is-centered
+    = link_to '全てのイベント', admin_events_path, class: 'button'
+    = link_to '公式イベント', admin_events_path(official: true), class: 'button'
+    = link_to 'メンバー開催イベント', admin_events_path(official: false), class: 'button'
+  - if @event_list.empty?
+    p
+      |  イベントの登録はありません。
+  - else
+    .event-list
+      = render partial: 'event_index', collection: @event_list, as: 'list'
+    = paginate(@event_list)
