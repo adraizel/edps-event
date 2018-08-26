@@ -1,5 +1,6 @@
+email_addr = ENV['FIRST_ADMIN_EMAIL'] || 'admin@edps.com'
 User.create(
-  email: ENV['FIRST_ADMIN_EMAIL'].present? ENV['FIRST_ADMIN_EMAIL'] : 'admin@edps.com',
+  email: email_addr,
   name: 'administrator',
   student_number: 'NE27-0999D',
   grade: 4,
