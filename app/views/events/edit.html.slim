@@ -1,40 +1,37 @@
-h1
-  | Events#edit
-p
-  | Find me in app/views/events/edit.html.erb
-= render :partial => 'users/user_nav'  
-= form_with model: @edit_event, url: user_event_path, method: :patch, local: true do |f|
-  .field
-    = f.label :title, class: 'label'
-    = show_errors(@edit_event.errors.full_messages_for(:title))
-    .control
-      = f.text_field :title, class: 'input'
-  .field
-    = f.label :location, class: 'label'
-    = show_errors(@edit_event.errors.full_messages_for(:location))
-    .control
-      = f.text_field :location, class: 'input'
-  .field
-    = f.label :start_time, class: 'label'
-    = show_errors(@edit_event.errors.full_messages_for(:start_time))
-    .control
-      = f.datetime_select :start_time,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'input'
-  .field
-    = f.label :charge, class: 'label'
-    = show_errors(@edit_event.errors.full_messages_for(:charge))
-    .control
-      = f.text_field :charge, class: 'input'
-  .field
-    = f.label :join_limit, class: 'label'
-    = show_errors(@edit_event.errors.full_messages_for(:join_limit))
-    .control
-      = f.datetime_select :join_limit,{start_year: Date.today.year, end_year: Date.today.year + 1}, class: 'input'
-  .field
-    = f.label :description, class: 'label'
-    = show_errors(@edit_event.errors.full_messages_for(:description))
-    .control
-      = f.text_area :description, class: 'input'
-  .field
-    = f.check_box :markdown, class: 'switch', id: 'switch'
-    = f.label "QiitaMarkdownで記述する", for: 'switch'
-  = f.submit "イベントを更新する", class: "button is-info"
+.container
+  = render :partial => 'users/user_nav'  
+  = form_with model: @edit_event, url: user_event_path, method: :patch, local: true do |f|
+    .field
+      = f.label :title, class: 'label'
+      = show_errors(@edit_event.errors.full_messages_for(:title))
+      .control
+        = f.text_field :title, class: 'input'
+    .field
+      = f.label :location, class: 'label'
+      = show_errors(@edit_event.errors.full_messages_for(:location))
+      .control
+        = f.text_field :location, class: 'input'
+    .field
+      = f.label :start_time, class: 'label'
+      = show_errors(@edit_event.errors.full_messages_for(:start_time))
+      .control
+        = f.text_field :start_time, class: 'date-picker input'
+    .field
+      = f.label :charge, class: 'label'
+      = show_errors(@edit_event.errors.full_messages_for(:charge))
+      .control
+        = f.text_field :charge, class: 'input'
+    .field
+      = f.label :join_limit, class: 'label'
+      = show_errors(@edit_event.errors.full_messages_for(:join_limit))
+      .control
+        = f.text_field :join_limit, class: 'date-picker input'
+    .field
+      = f.label :description, class: 'label'
+      = show_errors(@edit_event.errors.full_messages_for(:description))
+      .control
+        = f.text_area :description, class: 'input'
+    .field
+      = f.check_box :markdown, class: 'switch', id: 'switch'
+      = f.label "QiitaMarkdownで記述する", for: 'switch'
+    = f.submit "イベントを更新する", class: "button is-info"

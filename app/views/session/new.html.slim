@@ -1,12 +1,15 @@
-h1
-  | ログイン
-= form_with url: login_path, method: :post, local: true do |f|
-  .field
-    = f.label :email
-    .control
-      = f.email_field (:email), class: "input"
-  .field
-    = f.label :password
-    .control
-      = f.password_field (:password), class: "input"
-  = f.submit "ログイン" , class: "button is-link"
+section.hero.is-primary
+  .hero-body
+    .container
+      h1.title ログイン
+.container
+  = form_with url: login_path, method: :post, local: true do |f|
+    .field
+      = f.label :email
+      .control
+        = f.email_field (:email), class: "input"
+    .field
+      = f.label :password
+      .control
+        = f.password_field (:password), class: "input"
+    = f.submit "ログイン" , class: "button is-link"

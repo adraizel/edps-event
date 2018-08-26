@@ -1,18 +1,14 @@
-h1
-  | Admin::Pages#index
-p
-  | Find me in app/views/admin/pages/index.html.erb
-
-.level
-  .level-item.has-text-centered
-    div
-      p.heading 公式イベント数
-      p.title= @official_event_count
-  .level-item.has-text-centered
-    div
-      p.heading メンバー開催イベント数
-      p.title= @unofficial_event_count
-  .level-item.has-text-centered
-    div
-      p.heading メンバー数
-      p.title= @user_count
+.container
+  .level
+    .level-item.has-text-centered
+      div
+        p.heading 公式イベント数
+        p.title= @official_event_count
+    .level-item.has-text-centered
+      div
+        p.heading メンバー開催イベント数
+        p.title= @unofficial_event_count
+    .level-item.has-text-centered
+      div
+        p.heading メンバー数
+        p.title= @user_count

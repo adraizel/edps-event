@@ -1,10 +1,7 @@
-h1
-  | Events#joined
-p
-  | Find me in app/views/events/joined.html.erb
-= render :partial => 'users/user_nav'
-- if @joined_list.empty?
-  p 参加しているイベントはありません
-- else
-  .event-list
-    = render :partial => 'shared/events/event_joined_index', :collection => @joined_list, :as => 'list'
+.container
+  = render :partial => 'users/user_nav'
+  - if @joined_list.empty?
+    p 参加しているイベントはありません
+  - else
+    .event-list
+      = render :partial => 'shared/events/event_joined_index', :collection => @joined_list, :as => 'list'

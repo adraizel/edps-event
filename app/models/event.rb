@@ -8,7 +8,7 @@
 #  markdown    :boolean          default(FALSE)
 #  charge      :integer
 #  location    :string
-#  start_time  :datetime
+#  start_time  :date
 #  join_limit  :date
 #  owner_id    :integer
 #  official    :boolean          default(FALSE)

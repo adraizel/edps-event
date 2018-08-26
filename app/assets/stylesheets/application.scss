@@ -32,3 +32,11 @@
 textarea {
   min-height: 170px;
 }
+
+span.select {
+  width: 100%;
+
+  & > select {
+    width: 100%;
+  }
+}

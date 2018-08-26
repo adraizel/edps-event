@@ -2,20 +2,23 @@
 #
 # Table name: users
 #
-#  id               :integer          not null, primary key
-#  email            :string           not null
-#  crypted_password :string
-#  salt             :string
-#  name             :string           not null
-#  entrance_year    :integer          not null
-#  student_number   :string           not null
-#  birthday         :date             not null
-#  allergy_data     :string           default("")
-#  remark           :string           default("")
-#  executive        :boolean          default(FALSE)
-#  mailer           :boolean          default(FALSE)
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                          :integer          not null, primary key
+#  email                       :string           not null
+#  crypted_password            :string
+#  salt                        :string
+#  name                        :string           not null
+#  entrance_year               :integer          not null
+#  student_number              :string           not null
+#  birthday                    :date             not null
+#  allergy_data                :string           default("")
+#  remark                      :string           default("")
+#  executive                   :boolean          default(FALSE)
+#  mailer                      :boolean          default(FALSE)
+#  created_at                  :datetime         not null
+#  updated_at                  :datetime         not null
+#  activation_state            :string
+#  activation_token            :string
+#  activation_token_expires_at :datetime
 #
 
 class User < ApplicationRecord
@@ -24,13 +27,13 @@ class User < ApplicationRecord
   # 定数
   MAJORS = %w(CM HP HS LA LB LG LK LR LT LZ NE A E J M W)
 
+  #列挙
+  enum grade: {'pre-entry' => 0, 'freshman' => 1, 'sophomore' => 2, 'junior' => 3, 'senior' => 4, 'obog' => 5}
 
   # 関連
   has_many :user_events, dependent: :destroy
   has_many :held_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
   has_many :joined_events, through: :user_events, source: :event
-
-  before_validation :set_entrance_year
 
   # バリデーション
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
@@ -39,7 +42,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :student_number, format: {with: /\A(#{MAJORS.join('|')})\d{2}-\d{4}[A-Z]?\z/}, uniqueness: true
-
 
   # メソッド
   def age(date = Date.today)
@@ -51,28 +53,7 @@ class User < ApplicationRecord
     20 <= age(date)
   end
 
-  def grade(text = false)
-    if Date.today.month <= 3
-      gr = Date.today.year - entrance_year
-    else
-      gr = Date.today.year - entrance_year + 1
-    end
-    if text
-      if gr > 4
-        "OB/OG"
-      elsif gr < 1
-        "入学予定"
-      else
-        "#{gr}年"
-      end
-    else
-      gr
-    end
-  end
-
-  # プライベートメソッド
-  private
-  def set_entrance_year
+  def get_entrance_year
     begin
       spl = student_number.split('-')
       spl[0].gsub!(/[A-Z]{2}/,'')
@@ -83,8 +64,8 @@ class User < ApplicationRecord
         y = 1988 + spl[0].to_i
       end
       self.entrance_year = y
-    rescue
-      nil
+    rescue Exception => e
+      self.entrance_year = 1989
     end
   end
 end
