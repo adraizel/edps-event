@@ -61,7 +61,11 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "edps-event_#{Rails.env}"
   # config.action_mailer.perform_caching = false
-  
+  if ENV['SMTP_TLS'].eql?('true')
+    tls_mode = true
+  else
+    tls_mode = false
+  end
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              ENV['SMTP_ADDR'],
@@ -70,7 +74,7 @@ Rails.application.configure do
     user_name:            ENV['SMTP_USERNAME'],
     password:             ENV['SMTP_PASSWORD'],
     authentication:       'plain',
-    tls:                  true,
+    tls:                  tls_mode,
     enable_starttls_auto: true  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
