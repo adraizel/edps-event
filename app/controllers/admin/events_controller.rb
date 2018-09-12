@@ -12,8 +12,9 @@ class Admin::EventsController < Admin::Base
   def show
     @event = Event.find(params[:id])
     @participated_users = @event.participated_user.order(grade: :desc, student_number: :asc)
-    @participated_users_remark = {}
-    @event.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    # @participated_users_remark = {}
+    # @event.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    @participated_users_remark = @event.user_events.map{|r| [r.user_id,r.remark]}.to_h
     if @event.markdown?
       convert = Qiita::Markdown::Processor.new
       @event_description_md = convert.call(@event.description)
