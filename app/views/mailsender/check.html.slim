@@ -1,0 +1,20 @@
+.container
+  h1= @event_title.title
+  h2= @ml_title
+  p
+    = @ml_content
+  / = form_with url: mailsender_mailsend_path, local: true do |f|
+    .field
+      label 送信対象イベント
+      .control
+        span.select
+          = f.collection_select :ml_target , @event_list, :id, :title
+    .field
+      label メールタイトル
+      .control
+        = f.text_field :ml_title, class: 'input'
+    .field
+      label メール本文
+      .control
+        = f.text_area :ml_content, class: 'input'
+    = f.submit 'メールを送信する', class: 'button is-info'
