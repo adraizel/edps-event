@@ -1,6 +1,9 @@
 class MailsenderController < ApplicationController
   def create
     @event_list = current_user.held_events
+    if @event_list.length <= 0
+      redirect_to user_path, warning: '開催したイベントが存在しません。'
+    end
   end
 
   def check
