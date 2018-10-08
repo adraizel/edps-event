@@ -12,6 +12,7 @@ nav.navbar.is-white role="navigation" aria-label="main navigation"
       = link_to "イベント一覧", events_path, class: 'navbar-item'
       - if current_user
         = link_to "マイページ", user_path, class: 'navbar-item'
+        = link_to "メール送信", mailsender_index_path, class: 'navbar-item'
     .navbar-end
       - if current_user
         .navbar-item

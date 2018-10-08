@@ -63,6 +63,7 @@ class EventsController < ApplicationController
       authorize! join_event
       user_event = UserEvent.new(user: current_user, event: join_event, remark: params[:remark])
       if user_event.save
+        InfomationMailer.joined_email(current_user, join_event).deliver
         redirect_to joined_events_path, success: "イベントに参加しました"
       else
         redirect_to joined_events_path, warning: "すでに参加しているイベントです"
@@ -86,6 +87,7 @@ class EventsController < ApplicationController
     end
     @destroy_join = UserEvent.find_by(user: current_user, event: unjoin_event)
     if @destroy_join.destroy
+      InfomationMailer.unjoined_email(current_user, unjoin_event).deliver
       redirect_to joined_events_path, success: "参加を取り消しました"
     else
       redirect_to joined_events_path, warning: "参加の取り消しに失敗しました"
@@ -104,8 +106,9 @@ class EventsController < ApplicationController
     @event_detail = Event.find(params[:id])
     authorize! @event_detail
     @participated_users = @event_detail.participated_user.order(grade: :desc, student_number: :asc)
-    @participated_users_remark = {}
-    @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    # @participated_users_remark = {}
+    # @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
+    @participated_users_remark = @event_detail.user_events.map{|r| [r.user_id,r.remark]}.to_h
     if @event_detail.markdown?
       convert = Qiita::Markdown::Processor.new
       @event_description_md = convert.call(@event_detail.description)

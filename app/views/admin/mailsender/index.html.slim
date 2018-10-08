@@ -1,0 +1,6 @@
+.container
+  .columns
+    .column
+      = link_to 'イベント参加者に送信', admin_mailsender_create_path(mail_target: 0)
+    .column
+      = link_to '学年を指定して送信', admin_mailsender_create_path(mail_target: 1)
