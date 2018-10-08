@@ -35,5 +35,10 @@ Rails.application.routes.draw do
     root :to => "pages#index"
     resources :users
     resources :events
+
+    get '/mailsender', to: "mailsender#index", as: 'mailsender_index'
+    get '/mailsender/create', to: "mailsender#create", as: 'mailsender_create'
+    post '/mailsender/check', to: "mailsender#check", as: 'mailsender_check'
+    post '/mailsender/mailsend', to: "mailsender#mailsend", as: 'mailsender_mailsend'
   end
 end

@@ -1,0 +1,4 @@
+.field
+  label 送信対象イベント
+  span.select
+    = f.collection_select :ml_target , @event_list, :id, :title

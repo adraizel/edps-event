@@ -7,6 +7,7 @@ class MailsenderController < ApplicationController
   end
 
   def check
+    params = mail_params
     @event_title = Event.find(mail_params[:ml_target])
     @ml_title = mail_params[:ml_title]
     @ml_content = mail_params[:ml_content]
