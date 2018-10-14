@@ -4,40 +4,41 @@ class Admin::MailsenderController < Admin::Base
   end
 
   def create
+    @mail_data = MailData.new
     @target = params[:mail_target].to_i
     @event_list = Event.all
   end
 
   def check
-    @event_title = Event.find(mail_params[:ml_target])
-    @ml_title = mail_params[:ml_title]
-    @ml_content = mail_params[:ml_content]
+    @mail_data = MailData.new(mail_params)
+    if @mail_data.invalid?
+      @event_list = Event.all
+      render :create unless @mail_data.valid?
+    end
+    @event_title = Event.find(@mail_data.target).title unless @mail_data.target == '-1'
+    @target_grade = @mail_data.targets.map { |m| m != '5' ? "#{m}年" : '卒業生' }.join(' ') if @mail_data.targets.present?
   end
 
   def mailsend
-    params = mail_params
-    target_users = nil
-    if params[:ml_target].present?
-      target_users = Event.find(params[:ml_target]).participated_user
-    elsif params[:ml_targets].present?
-      target_users = []
-      params[:ml_targets].map{|u| target_users << User.where(grade: u.to_i)}
-      target_users.flatten!
-    end
-    
-    # binding.pry
-    
+    @mail_data = MailData.new(mail_params)
+    @mail_data.targets = @mail_data.targets.split(' ').map(&:to_i)
+    target_users = create_user_list(@mail_data.target, @mail_data.targets)
+    binding.pry
     target_users.each do |u|
-      InfomationMailer.infomation_email(u.email, mail_params[:ml_title], mail_params[:ml_content]).deliver
+      InfomationMailer.infomation_email(u.email, @mail_data.title, @mail_data.content).deliver
     end
     redirect_to admin_root_path, info: 'メール送信が完了しました'
   end
 
-  def result
-  end
-
   private
   def mail_params
-    params.permit(:ml_target, :ml_title, :ml_content, ml_targets: [])
+    params.require(:mail_data).permit(:target, :targets, :title, :content, targets: [])
+  end
+
+  def create_user_list(event_id, grade)
+    list = User.all if event_id == '-1'
+    list = Event.find(event_id).participated_user unless event_id == '-1'
+    return grade.map { |m| list.where(grade: m) }.flatten if grade.present?
+    return list
   end
 end

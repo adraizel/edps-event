@@ -1,13 +1,14 @@
 .field
   label 送信対象学年(複数選択可)
   .control
-    = f.check_box :ml_targets, {multiple: true, class: 'is-checkradio', id: 'freshman'}, 1, nil
+    = f.hidden_field :target, value: -1
+    = f.check_box :targets, {multiple: true, class: 'is-checkradio', id: 'freshman'}, 1, nil
     label for='freshman' 一年
-    = f.check_box :ml_targets, {multiple: true, class: 'is-checkradio', id: 'sophomore'}, 2, nil
+    = f.check_box :targets, {multiple: true, class: 'is-checkradio', id: 'sophomore'}, 2, nil
     label for='sophomore' 二年
-    = f.check_box :ml_targets, {multiple: true, class: 'is-checkradio', id: 'junior'}, 3, nil
+    = f.check_box :targets, {multiple: true, class: 'is-checkradio', id: 'junior'}, 3, nil
     label for='junior' 三年
-    = f.check_box :ml_targets, {multiple: true, class: 'is-checkradio', id: 'senior'}, 4, nil
+    = f.check_box :targets, {multiple: true, class: 'is-checkradio', id: 'senior'}, 4, nil
     label for='senior' 四年
-    = f.check_box :ml_targets, {multiple: true,  class: 'is-checkradio', id: 'obog'}, 5, nil
+    = f.check_box :targets, {multiple: true,  class: 'is-checkradio', id: 'obog'}, 5, nil
     label for='obog' 卒業生
