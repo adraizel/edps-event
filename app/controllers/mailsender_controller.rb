@@ -1,5 +1,6 @@
 class MailsenderController < ApplicationController
   def create
+    @mail_data = MailData.new
     @event_list = current_user.held_events
     if @event_list.length <= 0
       redirect_to user_path, warning: '開催したイベントが存在しません。'
@@ -7,25 +8,25 @@ class MailsenderController < ApplicationController
   end
 
   def check
-    params = mail_params
-    @event_title = Event.find(mail_params[:ml_target])
-    @ml_title = mail_params[:ml_title]
-    @ml_content = mail_params[:ml_content]
+    @mail_data = MailData.new(mail_params)
+    if @mail_data.invalid?
+      @event_list = current_user.held_events
+      render :create unless @mail_data.valid?
+    end
+    @event_title = Event.find(@mail_data.target).title
   end
 
   def mailsend
-    @event = Event.find(mail_params[:ml_target])
+    @mail_data = MailData.new(mail_params)
+    @event = Event.find(@mail_data.target)
     @event.participated_user.each do |u|
-      InfomationMailer.infomation_email(u.email, mail_params[:ml_title], mail_params[:ml_content]).deliver
+      InfomationMailer.infomation_email(u.email, @mail_data.title, @mail_data.content).deliver
     end
     redirect_to root_path, info: 'メール送信が完了しました'
   end
 
-  def result
-  end
-
   private
   def mail_params
-    params.permit(:ml_target, :ml_title, :ml_content)
+    params.require(:mail_data).permit(:target, :title, :content)
   end
 end

@@ -23,7 +23,6 @@ class Admin::MailsenderController < Admin::Base
     @mail_data = MailData.new(mail_params)
     @mail_data.targets = @mail_data.targets.split(' ').map(&:to_i)
     target_users = create_user_list(@mail_data.target, @mail_data.targets)
-    binding.pry
     target_users.each do |u|
       InfomationMailer.infomation_email(u.email, @mail_data.title, @mail_data.content).deliver
     end
