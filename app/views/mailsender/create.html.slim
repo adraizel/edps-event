@@ -2,15 +2,18 @@
   = form_with model: @mail_data, url: mailsender_check_path, local: true do |f|
     .field
       label 送信対象イベント
+      = show_errors(@mail_data.errors.full_messages_for(:target))
       .control
         span.select
           = f.collection_select :target , @event_list, :id, :title
     .field
       label メールタイトル
+      = show_errors(@mail_data.errors.full_messages_for(:title))
       .control
         = f.text_field :title, class: 'input'
     .field
       label メール本文
+      = show_errors(@mail_data.errors.full_messages_for(:content))
       .control
         = f.text_area :content, class: 'input'
     = f.submit 'メールを送信する', class: 'button is-info'

@@ -4,7 +4,6 @@ class Admin::MailsenderController < Admin::Base
 
   def create
     @mail_data = MailData.new(set_event_params)
-    @target = params[:mail_target].to_i
     @event_list = Event.all
   end
 

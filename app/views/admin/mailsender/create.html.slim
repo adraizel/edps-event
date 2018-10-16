@@ -1,15 +1,17 @@
 .container
   = form_with model: @mail_data, url: admin_mailsender_check_path, local: true do |f|
-    - if @target == 1
+    - if @mail_data.target == '-1'
       = render partial: 'create_target_grade', locals: {f: f}
     - else
       = render partial: 'create_target_event', locals: {f: f}
     .field
       label メールタイトル
+      = show_errors(@mail_data.errors.full_messages_for(:title))
       .control
         = f.text_field :title, class: 'input'
     .field
       label メール本文
+      = show_errors(@mail_data.errors.full_messages_for(:content))
       .control
         = f.text_area :content, class: 'input'
     = f.submit 'メールを送信する', class: 'button is-info'

@@ -1,9 +1,11 @@
 .field
   label 送信対象イベント
+  = show_errors(@mail_data.errors.full_messages_for(:target))
   span.select
     = f.collection_select :target , @event_list, :id, :title
 .field
   label 送信対象を学年で絞り込む(複数選択可)
+  = show_errors(@mail_data.errors.full_messages_for(:targets))
   .control
     = f.check_box :targets, {multiple: true, class: 'is-checkradio', id: 'freshman'}, 1, nil
     label for='freshman' 一年

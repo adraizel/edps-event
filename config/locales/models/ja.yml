@@ -1,4 +1,9 @@
 ja:
+  activemodel:
+    attributes:
+      mail_data:
+        title: メールタイトル
+        content: メール本文
   activerecord:
     attributes:
       user:
