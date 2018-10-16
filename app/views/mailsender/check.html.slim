@@ -1,14 +1,14 @@
 .container
   = form_with model: @mail_data, url: mailsender_mailsend_path, local: true do |f|
     = f.hidden_field :target
-    label 送信対象イベント
+    label class='label' 送信対象イベント
     p= @event_title
     .field
-      label メールタイトル
+      label class='label' メールタイトル
       .control
         = f.text_field :title, class: 'input', readonly: true
     .field
-      label メール本文
+      label class='label' メール本文
       .control
         = f.text_area :content, class: 'input', readonly: true
     = f.submit 'メールを送信する', class: 'button is-info', data: { confirm: "送信完了の画面が出るまで操作をしないでください。"}

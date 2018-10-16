@@ -5,12 +5,12 @@
     - else
       = render partial: 'create_target_event', locals: {f: f}
     .field
-      label メールタイトル
+      label class='label' メールタイトル
       = show_errors(@mail_data.errors.full_messages_for(:title))
       .control
         = f.text_field :title, class: 'input'
     .field
-      label メール本文
+      label class='label' メール本文
       = show_errors(@mail_data.errors.full_messages_for(:content))
       .control
         = f.text_area :content, class: 'input'

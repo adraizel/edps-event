@@ -1,5 +1,5 @@
 .field
-  label 送信対象学年(複数選択可)
+  label class='label' 送信対象学年(複数選択可)
   = show_errors(@mail_data.errors.full_messages_for(:targets))
   .control
     = f.hidden_field :target, value: -1
