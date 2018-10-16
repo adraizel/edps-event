@@ -1,5 +1,7 @@
 .tabs.is-centered
   ul
+    li class="#{request.path_info == user_path ? "is-active" : ''}"
+      = link_to "ユーザーページTOP", user_path
     li class="#{request.path_info == edit_user_path ? "is-active" : ''}"
       = link_to "ユーザー情報編集", edit_user_path
     li class="#{request.path_info == joined_events_path ? "is-active" : ''}"
