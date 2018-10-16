@@ -1,20 +1,14 @@
 .container
-  h1= @event_title.title
-  h2= @ml_title
-  p
-    = @ml_content
-  / = form_with url: mailsender_mailsend_path, local: true do |f|
-    .field
-      label 送信対象イベント
-      .control
-        span.select
-          = f.collection_select :ml_target , @event_list, :id, :title
+  = form_with model: @mail_data, url: mailsender_mailsend_path, local: true do |f|
+    = f.hidden_field :target
+    label 送信対象イベント
+    p= @event_title
     .field
       label メールタイトル
       .control
-        = f.text_field :ml_title, class: 'input'
+        = f.text_field :title, class: 'input', readonly: true
     .field
       label メール本文
       .control
-        = f.text_area :ml_content, class: 'input'
-    = f.submit 'メールを送信する', class: 'button is-info'
+        = f.text_area :content, class: 'input', readonly: true
+    = f.submit 'メールを送信する', class: 'button is-info', data: { confirm: "送信完了の画面が出るまで操作をしないでください。"}

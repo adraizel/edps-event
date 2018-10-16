@@ -1,17 +1,15 @@
 .container
-  = form_with url: admin_mailsender_mailsend_path, local: true do |f|
+  = form_with model: @mail_data, url: admin_mailsender_check_path, local: true do |f|
     - if @target == 1
       = render partial: 'create_target_grade', locals: {f: f}
-    - elsif @target == 2
-      = render partial: 'create_target_entrance', locals: {f: f}
     - else
       = render partial: 'create_target_event', locals: {f: f}
     .field
       label メールタイトル
       .control
-        = f.text_field :ml_title, class: 'input'
+        = f.text_field :title, class: 'input'
     .field
       label メール本文
       .control
-        = f.text_area :ml_content, class: 'input'
+        = f.text_area :content, class: 'input'
     = f.submit 'メールを送信する', class: 'button is-info'
