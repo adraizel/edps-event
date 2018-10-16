@@ -3,16 +3,16 @@ section.hero.is-primary
     .container
       h1.title イベント一覧
 .container
+  .tabs.is-centered
+    ul
+      li class="#{!params[:circle].present? ? "is-active" : ''}"
+        = link_to '全てのイベント', events_path
+      li class="#{params[:circle] == '1' ? "is-active" : ''}"
+        = link_to 'サークルイベント', events_path(circle: 1)
+      li class="#{params[:circle] == '2' ? "is-active" : ''}"
+        = link_to '部員開催のイベント', events_path(circle: 2)
   - if @event_list.empty?
     p 該当するイベントはありません
   - else
-    .tabs.is-centered
-      ul
-        li
-          a 全てのイベント
-        li
-          a 幹部開催のイベント
-        li
-          a 部員開催のイベント
     .event-list
       = render :partial => 'shared/events/event_index', :collection => @event_list, :as => 'list'

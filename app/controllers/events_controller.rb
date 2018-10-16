@@ -4,7 +4,9 @@ class EventsController < ApplicationController
   }, except: [:index, :show, :join]
 
   def index
-    @event_list = Event.all()
+    @event_list = Event.all() unless params[:circle].present?
+    @event_list = Event.where(official: true) if params[:circle] == '1'
+    @event_list = Event.where(official: false) if params[:circle] == '2'
   end
 
   def show
