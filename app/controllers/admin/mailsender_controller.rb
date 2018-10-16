@@ -1,10 +1,9 @@
 class Admin::MailsenderController < Admin::Base
   def index
-    @event_list = Event.all
   end
 
   def create
-    @mail_data = MailData.new
+    @mail_data = MailData.new(set_event_params)
     @target = params[:mail_target].to_i
     @event_list = Event.all
   end
@@ -30,6 +29,10 @@ class Admin::MailsenderController < Admin::Base
   end
 
   private
+  def set_event_params
+    params.permit(:target)
+  end
+
   def mail_params
     params.require(:mail_data).permit(:target, :targets, :title, :content, targets: [])
   end
