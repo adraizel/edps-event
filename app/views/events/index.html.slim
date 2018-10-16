@@ -8,9 +8,9 @@ section.hero.is-primary
       li class="#{!params[:circle].present? ? "is-active" : ''}"
         = link_to '全てのイベント', events_path
       li class="#{params[:circle] == '1' ? "is-active" : ''}"
-        = link_to 'サークルイベント', events_path(circle: 1)
+        = link_to 'サークルイベント', events_path(circle: true)
       li class="#{params[:circle] == '2' ? "is-active" : ''}"
-        = link_to '部員開催のイベント', events_path(circle: 2)
+        = link_to 'メンバーイベント', events_path(circle: false)
   - if @event_list.empty?
     p 該当するイベントはありません
   - else

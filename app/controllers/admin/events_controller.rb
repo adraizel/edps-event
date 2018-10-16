@@ -1,12 +1,8 @@
 class Admin::EventsController < Admin::Base
   def index
-    if params[:official].nil?
-      @event_list = Event.all.page(params[:page])
-    elsif params[:official] == 'true'
-      @event_list = Event.where(official: true).page(params[:page])
-    else
-      @event_list = Event.where(official: false).page(params[:page])
-    end
+      @event_list = Event.all.page(params[:page]) if params[:circle].nil?
+      @event_list = Event.where(official: true).page(params[:page]) if params[:circle] == 'true'
+      @event_list = Event.where(official: false).page(params[:page]) if params[:circle] == 'false'
   end
 
   def show
