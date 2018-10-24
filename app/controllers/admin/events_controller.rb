@@ -11,11 +11,6 @@ class Admin::EventsController < Admin::Base
     # @participated_users_remark = {}
     # @event.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
     @participated_users_remark = @event.user_events.map{|r| [r.user_id,r.remark]}.to_h
-    if @event.markdown?
-      convert = Qiita::Markdown::Processor.new
-      @event_description_md = convert.call(@event.description)
-      @event_description_md = @event_description_md[:output].to_s
-    end
     respond_to do |format|
       format.html
       format.csv do
@@ -35,7 +30,9 @@ class Admin::EventsController < Admin::Base
 
   def create
     @new_event = current_user.held_events.build(admin_event_params)
-    @new_event.official = true;
+    @new_event.official = true
+    convert = Qiita::Markdown::Processor.new
+    @new_event.converted_description = convert.call(@new_event.description)[:output].to_s
     if @new_event.save
       redirect_to admin_event_path(@new_event), success: "イベントを登録しました"
     else
@@ -50,6 +47,8 @@ class Admin::EventsController < Admin::Base
   def update
     @edit_event = Event.find(params[:id])
     @edit_event.assign_attributes(admin_event_params)
+    convert = Qiita::Markdown::Processor.new
+    @edit_evemt.converted_description = convert.call(@edit_event.description)[:output].to_s
     if @edit_event.save
       redirect_to admin_event_path(@edit_event), success: "情報を更新しました"
     else
@@ -67,7 +66,7 @@ class Admin::EventsController < Admin::Base
 
   private
   def admin_event_params
-    params.require(:event).permit(:title, :description, :markdown, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+    params.require(:event).permit(:title, :summary, :description, :converted_description, :start_time, :join_limit, :owner_id, :official, :deleted)
   end
 
   def participated_users_csv(encode = Encoding::UTF_8)

@@ -2,10 +2,9 @@ class CreateEvents < ActiveRecord::Migration[5.1]
   def self.up
     create_table :events do |t|
       t.string   :title
+      t.text     :summary
       t.text     :description
-      t.boolean  :markdown,     default: false
-      t.integer  :charge
-      t.string   :location
+      t.text     :converted_description
       t.date     :start_time
       t.date     :join_limit
       t.integer  :owner_id

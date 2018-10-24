@@ -11,11 +11,6 @@ class EventsController < ApplicationController
 
   def show
     @event_detail = Event.find(params[:id])
-    if @event_detail.markdown?
-      convert = Qiita::Markdown::Processor.new
-      @event_description_md = convert.call(@event_detail.description)
-      @event_description_md = @event_description_md[:output].to_s
-    end
   end
 
   def new
@@ -24,6 +19,8 @@ class EventsController < ApplicationController
 
   def create
     @new_event = current_user.held_events.build(event_params)
+    convert = Qiita::Markdown::Processor.new
+    @new_event.converted_description = convert.call(@new_event.description)[:output].to_s
     if @new_event.save
       UserEvent.create(user: current_user, event: @new_evemt)
       redirect_to detail_user_event_path(@new_event)
@@ -41,6 +38,8 @@ class EventsController < ApplicationController
     @edit_event = Event.find(params[:id])
     authorize! @edit_event
     @edit_event.assign_attributes(event_params)
+    convert = Qiita::Markdown::Processor.new
+    @edit_evemt.converted_description = convert.call(@edit_event.description)[:output].to_s
     if @edit_event.save
       redirect_to detail_user_event_path(@edit_event), success: "情報を更新しました"
     else
@@ -111,11 +110,6 @@ class EventsController < ApplicationController
     # @participated_users_remark = {}
     # @event_detail.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
     @participated_users_remark = @event_detail.user_events.map{|r| [r.user_id,r.remark]}.to_h
-    if @event_detail.markdown?
-      convert = Qiita::Markdown::Processor.new
-      @event_description_md = convert.call(@event_detail.description)
-      @event_description_md = @event_description_md[:output].to_s
-    end
     respond_to do |format|
       format.html
       format.csv do
@@ -131,7 +125,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:title, :description, :markdown, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+    params.require(:event).permit(:title, :summary, :description, :converted_description, :start_time, :join_limit, :owner_id, :deleted)
   end
   
   def participated_users_csv(encode = Encoding::UTF_8)

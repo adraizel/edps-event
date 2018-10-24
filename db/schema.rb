@@ -14,10 +14,9 @@ ActiveRecord::Schema.define(version: 20180000000004) do
 
   create_table "events", force: :cascade do |t|
     t.string "title"
+    t.text "summary"
     t.text "description"
-    t.boolean "markdown", default: false
-    t.integer "charge"
-    t.string "location"
+    t.text "converted_description"
     t.date "start_time"
     t.date "join_limit"
     t.integer "owner_id"
