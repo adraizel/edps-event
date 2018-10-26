@@ -14,5 +14,5 @@ section.hero.is-primary
   - if @event_list.empty?
     p 該当するイベントはありません
   - else
-    .event-list
-      = render :partial => 'shared/events/event_index', :collection => @event_list, :as => 'list'
+    .columns.is-multiline
+      = render partial: 'shared/events/event_index', collection: @event_list, as: 'list'

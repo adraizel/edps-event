@@ -50,3 +50,7 @@ span.select {
     @extend .is-danger;
   }
 }
+
+.card-footer > a{
+  height: inherit;
+}

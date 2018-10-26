@@ -1,10 +1,12 @@
-.card.event-info
-  h2= list.title
-  p= list.summary
-  .field.is-grouped
-    .control
-      = link_to '詳細', admin_event_path(list), class: 'button is-default'
-    .control
-      = link_to '編集', edit_admin_event_path(list), class: 'button is-warning'
-    .control
-      = link_to '削除', admin_event_path(list), method: :delete, class: 'button is-danger'
+.column.is-one-third
+  .card
+    header.card-header
+      p.card-header-title
+        = link_to list.title, admin_event_path(list)
+    .card-content
+      .content
+        = list.summary
+    footer.card-footer
+      = link_to 'メール送信', admin_mailsender_create_path(target: list.id), class: 'card-footer-item'
+      = link_to '編集', edit_admin_event_path(list), class: 'card-footer-item'
+      = link_to '削除', admin_event_path(list), method: :delete, class: 'button is-danger card-footer-item', data: {confirm: 'このイベントを削除しますよろしいですか？'}

@@ -1,3 +1,12 @@
-.card.event-info
-  = link_to list.title, detail_user_event_path(list)
-  p= list.summary
+.column.is-one-third
+  .card
+    header.card-header
+      p.card-header-title
+        = link_to list.title, admin_event_path(list)
+    .card-content
+      .content
+        = list.summary
+    footer.card-footer
+      = link_to 'メール送信', mailsender_index_path(target: list.id), class: 'card-footer-item'
+      = link_to '編集', edit_user_event_path(list), class: 'card-footer-item'
+      = link_to '削除', user_event_path(list), method: :delete, class: 'button is-danger card-footer-item', data: {confirm: 'このイベントを削除しますよろしいですか？'}

@@ -1,3 +1,8 @@
-.card.event-info
-  = link_to list.title, event_path(list)
-  p= list.summary
+.column.is-one-third
+  .card
+    header.card-header
+      p.card-header-title
+        = link_to list.title, event_path(list)
+    .card-content
+      .content
+        = list.summary

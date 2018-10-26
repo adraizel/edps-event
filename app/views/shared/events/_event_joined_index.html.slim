@@ -1,4 +1,10 @@
-.card.event-info
-  = link_to list.title, event_path(list)
-  p= list.summary
-  = link_to '参加を取り消す', unjoin_event_path(list),  method: :post, class: 'button is-danger', data: {confirm: '参加を取り消しますよろしいですか？'}
+.column.is-one-third
+  .card
+    header.card-header
+      p.card-header-title
+        = link_to list.title, event_path(list)
+    .card-content
+      .content
+        = list.summary
+    footer.card-footer
+      = link_to '参加を取り消す', unjoin_event_path(list),  method: :post, class: 'button is-danger card-footer-item', data: {confirm: '参加を取り消しますよろしいですか？'}

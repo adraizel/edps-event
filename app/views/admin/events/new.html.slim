@@ -1,6 +1,6 @@
 .container
   = render partial: 'event_nav'
-  p.notification.is-danger
+  p.notification.is-warning
     | 管理者ページでイベントを登録した場合、全て公式イベントとして登録されます。
     br
     | 公式イベントで登録したくない場合は#{link_to 'こちらから登録してください', new_user_event_path}
@@ -11,7 +11,6 @@
       = show_errors(@new_event.errors.full_messages_for(:title))
       .control
         = f.text_field :title, class: 'input'
-    .field
     .field
       = f.label :start_time, class: 'label'
       = show_errors(@new_event.errors.full_messages_for(:start_time))

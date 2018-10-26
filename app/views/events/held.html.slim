@@ -1,4 +1,4 @@
 .container
   = render :partial => '/users/user_nav'  
-  .event-list
+  .columns.is-multiline
     = render :partial => '/shared/events/event_held_index', :collection => @held_list, :as => 'list'
