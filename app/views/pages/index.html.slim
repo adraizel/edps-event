@@ -5,12 +5,5 @@ section.hero.is-medium.is-primary.is-bold
       h2.subtitle 専修大学EDPSイベント参加ポータル
 .container
   h2.is-size-3 新着イベント
-  .tile.is-ancestor
-    .tile.is-6.is-vertical.is-parent
-      .tile.is-child.box
-        h2.is-size-4 サークルイベント
-        h3.is-size-5.has-text-right more
-    .tile.is-6.is-vertical.is-parent
-      .tile.is-child.box
-        h2.is-size-4 メンバーイベント
-        h3.is-size-5.has-text-right more
+  .columns.is-multiline
+    = render partial: 'shared/events/event_index', collection: @lately_events, as: 'list'

@@ -1,16 +1,15 @@
 class Admin::EventsController < Admin::Base
   def index
-      @event_list = Event.all.page(params[:page]) if params[:circle].nil?
-      @event_list = Event.where(official: true).page(params[:page]) if params[:circle] == 'true'
-      @event_list = Event.where(official: false).page(params[:page]) if params[:circle] == 'false'
+    @event_list = Event.available_events
+    @event_list = @event_list.circle_events if params[:circle] == 'true'
+    @event_list = @event_list.member_events if params[:circle] == 'false'
+    @event_list = @event_list.page(params[:page])
   end
 
   def show
     @event = Event.find(params[:id])
     @participated_users = @event.participated_user.order(grade: :desc, student_number: :asc)
-    # @participated_users_remark = {}
-    # @event.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
-    @participated_users_remark = @event.user_events.map{|r| [r.user_id,r.remark]}.to_h
+    @participated_users_remark = @event.user_events.map { |r| [r.user_id, r.remark] }.to_h
     respond_to do |format|
       format.html
       format.csv do
@@ -31,10 +30,8 @@ class Admin::EventsController < Admin::Base
   def create
     @new_event = current_user.held_events.build(admin_event_params)
     @new_event.official = true
-    convert = Qiita::Markdown::Processor.new
-    @new_event.converted_description = convert.call(@new_event.description)[:output].to_s
     if @new_event.save
-      redirect_to admin_event_path(@new_event), success: "イベントを登録しました"
+      redirect_to admin_event_path(@new_event), success: 'イベントを登録しました'
     else
       render :new
     end
@@ -47,10 +44,8 @@ class Admin::EventsController < Admin::Base
   def update
     @edit_event = Event.find(params[:id])
     @edit_event.assign_attributes(admin_event_params)
-    convert = Qiita::Markdown::Processor.new
-    @edit_evemt.converted_description = convert.call(@edit_event.description)[:output].to_s
     if @edit_event.save
-      redirect_to admin_event_path(@edit_event), success: "情報を更新しました"
+      redirect_to admin_event_path(@edit_event), success: '情報を更新しました'
     else
       render :edit
     end
@@ -58,9 +53,11 @@ class Admin::EventsController < Admin::Base
 
   def destroy
     @destroy_event = Event.find(params[:id])
-    if @destroy_event.destroy
-      redirect_to admin_events_path, success: "イベントを削除しました"
+    @destroy_event.deleted = true
+    if @destroy_event.save
+      redirect_to admin_events_path, success: 'イベントを削除しました'
     else
+      redirect_to admin_event_path(@destroy_event), warning: 'イベントを削除出来ませんでした'
     end
   end
 

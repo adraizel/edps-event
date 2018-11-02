@@ -4,13 +4,13 @@ class Admin::MailsenderController < Admin::Base
 
   def create
     @mail_data = MailData.new(set_event_params)
-    @event_list = Event.all
+    @event_list = Event.available_events
   end
 
   def check
     @mail_data = MailData.new(mail_params)
     if @mail_data.invalid?
-      @event_list = Event.all
+      @event_list = Event.available_events
       render :create unless @mail_data.valid?
     end
     @event_title = Event.find(@mail_data.target).title unless @mail_data.target == '-1'

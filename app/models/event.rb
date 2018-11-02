@@ -22,17 +22,20 @@ class Event < ApplicationRecord
   has_many :user_events, dependent: :destroy
   has_many :participated_user, through: :user_events, source: :user
 
-  default_scope { where(deleted: false) }
+  before_validation :convert_to_markdown
   
+  scope :deleted_events, -> { where(deleted: true) }
+  scope :available_events, -> { where(deleted: false) }
   scope :after_finishing, -> { where('? > start_time', Date.today) }
   scope :before_beginning, -> { where('? <= start_time', Date.today) }
   scope :acceptance_finished, -> { where('join_limit < ?', Date.today) }
   scope :during_acceptance, -> { where('join_limit >= ?', Date.today) }
+  scope :member_events, -> { where(official: false) }
+  scope :circle_events, -> { where(official: true) }
 
   validates :title, presence: true
   validates :description, presence: true
-  validates :charge, numericality: {only_integer: true, greater_than_or_equal_to: 0}
-  validates :location, presence: true
+  validates :converted_description, presence: true
   validate :check_date
   validate :check_date_on_create, on: :create
 
@@ -50,5 +53,11 @@ class Event < ApplicationRecord
 
   def isJoined?(user)
     user_events.map(&:user_id).include?(user.id) if user
+  end
+
+  private
+  def convert_to_markdown
+    convert = Qiita::Markdown::Processor.new
+    self.converted_description = convert.call(description)[:output].to_s
   end
 end

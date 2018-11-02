@@ -1,5 +1,6 @@
 .container
   .content
+    h1= @event.title
     = @event.converted_description.html_safe
   div
     h4 参加者一覧
@@ -13,10 +14,6 @@
           span.icon.is-small
             = fa_icon 'file-o'
           span CSVダウンロード(UTF-8)
-        / a.button
-          span.icon.is-small
-            = fa_icon 'file-pdf-o'
-          span PDFダウンロード(A4)
       table.table.is-bordered.is-striped.is-hoverable.is-fullwidth
         tr
           th 学年

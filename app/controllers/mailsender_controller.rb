@@ -1,7 +1,7 @@
 class MailsenderController < ApplicationController
   def create
     @mail_data = MailData.new(set_event_params)
-    @event_list = current_user.held_events
+    @event_list = current_user.held_events.available_events
     if @event_list.length <= 0
       redirect_to user_path, warning: '開催したイベントが存在しません。'
     end
@@ -10,7 +10,8 @@ class MailsenderController < ApplicationController
   def check
     @mail_data = MailData.new(mail_params)
     if @mail_data.invalid?
-      @event_list = current_user.held_events
+      @event_list = current_user.held_events.available_events
+      
       render :create unless @mail_data.valid?
     end
     @event_title = Event.find(@mail_data.target).title

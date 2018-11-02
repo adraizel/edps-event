@@ -1,5 +1,6 @@
 .container
   .content
+    h1= @event_detail.title
     = @event_detail.converted_description.html_safe
   .field.is-grouped
     .control
