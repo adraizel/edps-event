@@ -1,6 +1,8 @@
 .container
   .content
     h1= @event_detail.title
+    p 開催日: #{I18n.l(@event_detail.start_time)}
+    p 参加締め切り: #{I18n.l(@event_detail.join_limit)}
     = @event_detail.converted_description.html_safe
   .field.is-grouped
     .control

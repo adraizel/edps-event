@@ -1,6 +1,8 @@
 .container
   .content
     h1= @event.title
+    p 開催日: #{I18n.l(@event.start_time)}
+    p 参加締め切り: #{I18n.l(@event.join_limit)}
     = @event.converted_description.html_safe
   div
     h4 参加者一覧

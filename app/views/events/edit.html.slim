@@ -24,6 +24,10 @@
     .field
       = f.label :description, class: 'label'
       = show_errors(@edit_event.errors.full_messages_for(:description))
+      p
+        | QiitaMarkdown形式で書き込んでください。書き方が分からない人は
+        a href="https://qiita.com/Qiita/items/c686397e4a0f4f11683d" target="_blank" こちら
+        | を参照してください
       .control
         = f.text_area :description, class: 'input'
     = f.submit "イベントを更新する", class: "button is-info"
