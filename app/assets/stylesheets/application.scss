@@ -40,3 +40,17 @@ span.select {
     width: 100%;
   }
 }
+
+.field_with_errors {
+  & > label {
+    color: $danger;
+  }
+
+  input, textarea, span, label {
+    @extend .is-danger;
+  }
+}
+
+.card-footer > a{
+  height: inherit;
+}

@@ -1,25 +1,15 @@
 class Admin::EventsController < Admin::Base
   def index
-    if params[:official].nil?
-      @event_list = Event.all.page(params[:page])
-    elsif params[:official] == 'true'
-      @event_list = Event.where(official: true).page(params[:page])
-    else
-      @event_list = Event.where(official: false).page(params[:page])
-    end
+    @event_list = Event.available_events
+    @event_list = @event_list.circle_events if params[:circle] == 'true'
+    @event_list = @event_list.member_events if params[:circle] == 'false'
+    @event_list = @event_list.page(params[:page])
   end
 
   def show
     @event = Event.find(params[:id])
     @participated_users = @event.participated_user.order(grade: :desc, student_number: :asc)
-    # @participated_users_remark = {}
-    # @event.user_events.map{ |r| @participated_users_remark[r.user_id] = r.remark }
-    @participated_users_remark = @event.user_events.map{|r| [r.user_id,r.remark]}.to_h
-    if @event.markdown?
-      convert = Qiita::Markdown::Processor.new
-      @event_description_md = convert.call(@event.description)
-      @event_description_md = @event_description_md[:output].to_s
-    end
+    @participated_users_remark = @event.user_events.map { |r| [r.user_id, r.remark] }.to_h
     respond_to do |format|
       format.html
       format.csv do
@@ -39,9 +29,9 @@ class Admin::EventsController < Admin::Base
 
   def create
     @new_event = current_user.held_events.build(admin_event_params)
-    @new_event.official = true;
+    @new_event.official = true
     if @new_event.save
-      redirect_to admin_event_path(@new_event), success: "イベントを登録しました"
+      redirect_to admin_event_path(@new_event), success: 'イベントを登録しました'
     else
       render :new
     end
@@ -55,7 +45,7 @@ class Admin::EventsController < Admin::Base
     @edit_event = Event.find(params[:id])
     @edit_event.assign_attributes(admin_event_params)
     if @edit_event.save
-      redirect_to admin_event_path(@edit_event), success: "情報を更新しました"
+      redirect_to admin_event_path(@edit_event), success: '情報を更新しました'
     else
       render :edit
     end
@@ -63,15 +53,17 @@ class Admin::EventsController < Admin::Base
 
   def destroy
     @destroy_event = Event.find(params[:id])
-    if @destroy_event.destroy
-      redirect_to admin_events_path, success: "イベントを削除しました"
+    @destroy_event.deleted = true
+    if @destroy_event.save
+      redirect_to admin_events_path, success: 'イベントを削除しました'
     else
+      redirect_to admin_event_path(@destroy_event), warning: 'イベントを削除出来ませんでした'
     end
   end
 
   private
   def admin_event_params
-    params.require(:event).permit(:title, :description, :markdown, :charge, :roll_call_point, :location, :roll_call_time, :start_time, :end_time, :join_limit)
+    params.require(:event).permit(:title, :summary, :description, :converted_description, :start_time, :join_limit, :owner_id, :official, :deleted)
   end
 
   def participated_users_csv(encode = Encoding::UTF_8)

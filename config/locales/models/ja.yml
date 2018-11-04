@@ -1,4 +1,9 @@
 ja:
+  activemodel:
+    attributes:
+      mail_data:
+        title: メールタイトル
+        content: メール本文
   activerecord:
     attributes:
       user:
@@ -14,9 +19,8 @@ ja:
         remark: 備考
       event:
         title: イベント名
+        summary: イベントの要約
         description: イベントの詳細
-        charge: 参加費
-        location: 開催場所
         start_time: 開催日
         join_limit: 参加期限
         official: 公式イベント

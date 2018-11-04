@@ -1,27 +1,53 @@
-Event.create([
-  {
-    title: Faker::Book.title,
-    description: "### Markdown Test\n\n**#{Faker::Lorem.paragraph}**",
-    markdown: true,
-    charge: rand(0..10000),
-    location: Faker::Pokemon.location,
-    start_time: Date.today.tomorrow,
-    join_limit: Date.today,
-    owner_id: 1,
-    official: true
-  }
-])
+dt = Date.today
 
-5.times do
-  Event.create([
+[true, false].each do |o|
+  # ?開催終了
+  Event.new(
     {
       title: Faker::Book.title,
-      description: Faker::Lovecraft.paragraph,
-      charge: rand(0..10000),
-      location: Faker::Pokemon.location,
-      start_time: Date.today.tomorrow,
-      join_limit: Date.today,
-      owner_id: rand(1..3)
+      summary: Faker::Lovecraft.sentence,
+      description: Faker::Markdown.sandwich(3, 5),
+      start_time: dt.last_year,
+      join_limit: dt.last_week.last_year,
+      owner_id: o ? 1 : rand(1..3),
+      official: o
     }
-  ])
+  ).save(validate: false)
+  # ?開催前 - 参加受付中
+  Event.new(
+    {
+      title: Faker::Book.title,
+      summary: Faker::Lovecraft.sentence,
+      description: Faker::Markdown.sandwich(3, 5),
+      start_time: dt.next_year,
+      join_limit: dt.last_week.next_year,
+      owner_id: o ? 1 : rand(1..3),
+      official: o
+    }
+  ).save(validate: false)
+  # ?開催前 - 参加受け付け終了
+  Event.new(
+    {
+      title: Faker::Book.title,
+      summary: Faker::Lovecraft.sentence,
+      description: Faker::Markdown.sandwich(3, 5),
+      start_time: dt.next_year,
+      join_limit: dt.yesterday,
+      owner_id: o ? 1 : rand(1..3),
+      official: o
+    }
+  ).save(validate: false)
+  # ?イベント削除済み
+  Event.new(
+    {
+      title: Faker::Book.title,
+      summary: Faker::Lovecraft.sentence,
+      description: Faker::Markdown.sandwich(3, 5),
+      start_time: dt.last_year,
+      join_limit: dt.last_week.last_year,
+      owner_id: o ? 1 : 2,
+      official: o,
+      deleted: true
+    }
+  ).save(validate: false)
 end

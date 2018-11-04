@@ -51,6 +51,9 @@ $(document).on('turbolinks:load', function() {
   $('.modal .modal-background').click(function(){
     $('.modal').removeClass('is-active');
   });
+  $('a#pre-input').click(function () {
+    $('textarea')[1].value = "## イベント内容\n\n## 集合場所\n\n## 持ち物\n\n"
+  });
  });
 
 var timer = false;

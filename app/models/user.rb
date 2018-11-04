@@ -35,6 +35,9 @@ class User < ApplicationRecord
   has_many :held_events, class_name: 'Event', foreign_key: 'owner_id', dependent: :destroy
   has_many :joined_events, through: :user_events, source: :event
 
+  # スコープ
+  scope :grade_is, ->(g) { where(grade: g.to_i) }
+
   # バリデーション
   validates :password, length: { minimum: 5 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }

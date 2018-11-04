@@ -1,21 +1,34 @@
 .container
-  h2 名前
-  p
-    = @user_detail.name
-  h2 学籍番号
-  p
-    = @user_detail.student_number
-  h2 生年月日・年齢
-  p
-    = @user_detail.birthday
-  p
-    | #{Date.today}時点で#{@user_detail.age}歳
-  h2 アレルギー情報
-  p
-    = @user_detail.allergy_data.present? ? @user_detail.allergy_data : "特になし"
-  h2 備考
-  p
-    = @user_detail.remark.present? ? @user_detail.remark : "特になし"
+  table.table.is-bordered.is-fullwidth
+    tr
+      td 名前
+      td= @user_detail.name
+    tr
+      td 学籍番号
+      td= @user_detail.student_number
+    tr
+      td メールアドレス
+      td= @user_detail.email
+    tr
+      td 誕生日
+      td= I18n.l(@user_detail.birthday, format: :long)
+    tr
+      td 成人済み
+      td #{@user_detail.age >= 20 ? 'はい' : 'いいえ'}(#{I18n.l(Date.today, format: :short)}時点)
+    tr
+      td アレルギー情報
+      td= @user_detail.allergy_data.present? ? @user_detail.allergy_data : '特になし'
+    tr
+      td 備考
+      td= @user_detail.remark.present? ? @user_detail.remark : "特になし"
+    tr
+      td 権限
+      - if @user_detail.executive
+        td 幹部権限
+      - elsif @user_detail.mailer
+        td 開催イベント外メンバーへのメール送信許可
+      - else
+        td なし
   .field.is-grouped
     .control
       = link_to "一覧に戻る", admin_users_path, class: "button is-info"

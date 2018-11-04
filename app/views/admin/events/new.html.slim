@@ -1,6 +1,6 @@
 .container
   = render partial: 'event_nav'
-  p.notification.is-danger
+  p.notification.is-warning
     | 管理者ページでイベントを登録した場合、全て公式イベントとして登録されます。
     br
     | 公式イベントで登録したくない場合は#{link_to 'こちらから登録してください', new_user_event_path}
@@ -12,31 +12,28 @@
       .control
         = f.text_field :title, class: 'input'
     .field
-      = f.label :location, class: 'label'
-      = show_errors(@new_event.errors.full_messages_for(:location))
-      .control
-        = f.text_field :location, class: 'input'
-    .field
       = f.label :start_time, class: 'label'
       = show_errors(@new_event.errors.full_messages_for(:start_time))
       .control
         = f.text_field :start_time, class: 'date-picker input'
-    .field
-      = f.label :charge, class: 'label'
-      = show_errors(@new_event.errors.full_messages_for(:charge))
-      .control
-        = f.text_field :charge, class: 'input'
     .field
       = f.label :join_limit, class: 'label'
       = show_errors(@new_event.errors.full_messages_for(:join_limit))
       .control
         = f.text_field :join_limit, class: 'date-picker input'
     .field
+      = f.label :summary, class: 'label'
+      = show_errors(@new_event.errors.full_messages_for(:summary))
+      .control
+        = f.text_area :summary, class: 'input'
+    .field
       = f.label :description, class: 'label'
       = show_errors(@new_event.errors.full_messages_for(:description))
+      a#pre-input.button.is-info テンプレートを利用する(上書きされます)
+      p
+        | QiitaMarkdown形式で書き込んでください。書き方が分からない人は
+        a href="https://qiita.com/Qiita/items/c686397e4a0f4f11683d" target="_blank" こちら
+        | を参照してください
       .control
         = f.text_area :description, class: 'input'
-    .field
-      = f.check_box :markdown, class: 'switch', id: 'switch'
-      = f.label "QiitaMarkdownで記述する", for: 'switch'
     = f.submit "イベントを登録する", class: "button is-info"

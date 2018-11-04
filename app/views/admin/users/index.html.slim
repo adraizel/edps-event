@@ -1,12 +1,12 @@
 .container
   = render partial: 'user_nav'
   .buttons.has-addons.is-centered
-    = link_to '全学年', admin_users_path, class: 'button'
-    = link_to '一年次', admin_users_path(grade: 1), class: 'button'
-    = link_to '二年次', admin_users_path(grade: 2), class: 'button'
-    = link_to '三年次', admin_users_path(grade: 3), class: 'button'
-    = link_to '四年次', admin_users_path(grade: 4), class: 'button'
-    = link_to '卒業生', admin_users_path(grade: 5), class: 'button'
+    = link_to '全学年', admin_users_path, class: "#{!params[:grade].present? ?  'button is-info is-selected' : 'button'}"
+    = link_to '一年次', admin_users_path(grade: 1), class: "#{params[:grade] == '1' ?  'button is-info is-selected' : 'button'}"
+    = link_to '二年次', admin_users_path(grade: 2), class: "#{params[:grade] == '2' ?  'button is-info is-selected' : 'button'}"
+    = link_to '三年次', admin_users_path(grade: 3), class: "#{params[:grade] == '3' ?  'button is-info is-selected' : 'button'}"
+    = link_to '四年次', admin_users_path(grade: 4), class: "#{params[:grade] == '4' ?  'button is-info is-selected' : 'button'}"
+    = link_to '卒業生', admin_users_path(grade: 5), class: "#{params[:grade] == '5' ?  'button is-info is-selected' : 'button'}"
   - if @user_list.empty?
     p 該当するユーザーは登録されていません。
   - else
