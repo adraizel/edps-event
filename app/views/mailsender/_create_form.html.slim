@@ -1,0 +1,18 @@
+= form_with model: @mail_data, url: mailsender_check_path, id: 'create_mail' do |f|
+  .field
+    label class='label' 送信対象イベント
+    = show_errors(@mail_data.errors.full_messages_for(:target_event))
+    .control
+      span.select
+        = f.collection_select :target_event , @event_list, :id, :title
+  #title.field
+    label class='label m_title' メールタイトル
+    = show_errors(@mail_data.errors.full_messages_for(:title))
+    .control
+      = f.text_field :title, class: 'input m_title'
+  #content.field
+    label class='label m_content' メール本文
+    = show_errors(@mail_data.errors.full_messages_for(:content))
+    .control
+      = f.text_area :content, class: 'input m_content'
+  = f.submit 'メールを送信する', class: 'button is-info', 'data-disable-with': '送信中'

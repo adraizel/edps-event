@@ -1,18 +1,18 @@
 class MailData
   include ActiveModel::Model
 
-  attr_accessor :target, :targets, :title, :content
+  attr_accessor :target_event, :target_grade, :target_grade_str, :title, :content
 
-  validates :target, presence: :true, if: :targets_present?
-  validates :targets, presence: :true, if: :target_present?
+  validates :target_event, presence: :true, if: :target_grade_present?
+  validates :target_grade, presence: :true, if: :target_event_present?
   validates :title, presence: :true
   validates :content, presence: :true
 
-  def target_present?
-    target.present? == false
+  def target_event_present?
+    target_event.present? == false
   end
 
-  def targets_present?
-    targets.present? == false
+  def target_grade_present?
+    target_grade.present? == false
   end
 end
